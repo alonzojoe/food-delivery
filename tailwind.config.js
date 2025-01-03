@@ -10,7 +10,7 @@ export default {
         primary: "#FF6838",
         textDark: "#302F3C",
         textDarken: "575661",
-        secondary: "#EFF6FC",
+        secondary: "#F1ECE7",
         tertiary: "#FAFAFA",
       },
       container: {

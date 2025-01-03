@@ -1,30 +1,9 @@
-import { MdShoppingCartCheckout } from "react-icons/md";
-import { RiMenu5Fill } from "react-icons/ri";
-import { FaRegUserCircle } from "react-icons/fa";
-import { FaCaretDown } from "react-icons/fa";
+import Header from "@/layouts/components/Header";
 import { IoSearch } from "react-icons/io5";
 const StartUp = () => {
   return (
     <div className="h-screen container flex items-center flex-col mt-10 px-8">
-      <div className="flex items-center justify-between w-full">
-        <div className="bg-secondary p-3 rounded-lg">
-          <RiMenu5Fill className="text-xl text-textDark" />
-        </div>
-        <div className="flex justify-center items-center gap-2">
-          <span>
-            <FaRegUserCircle className="text-xl text-primary" />
-          </span>
-          <span className="text-textDark font-semibold text-xl">
-            Hello, Joe
-          </span>
-          <span>
-            <FaCaretDown className="text-xl text-primary" />
-          </span>
-        </div>
-        <div className="bg-secondary p-3 rounded-lg">
-          <MdShoppingCartCheckout className="text-xl text-textDark" />
-        </div>
-      </div>
+      <Header />
       <div>
         <h1 className="my-5 text-3xl font-bold text-center !leading-snug">
           What do you want to <span className="text-primary">Eat</span>?
