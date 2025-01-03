@@ -6,7 +6,13 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
-      colors: {},
+      colors: {
+        primary: "#FF6838",
+        textDark: "#302F3C",
+        textDarken: "575661",
+        secondary: "#EFF6FC",
+        tertiary: "#FAFAFA",
+      },
       container: {
         center: true,
         padding: {
