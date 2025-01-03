@@ -1,8 +1,13 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import StartUp from "@/pages/StartUp/StartUp";
+
 function App() {
   return (
-    <>
-      <div className="container">Food Delivery</div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<StartUp />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
