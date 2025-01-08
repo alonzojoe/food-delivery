@@ -5,7 +5,7 @@ type CardProps = {
 };
 
 const Card = ({ children }: CardProps) => {
-  return <div className="">{children}</div>;
+  return <div className="border-2 w-full rounded-lg shadow-sm">{children}</div>;
 };
 
 export default Card;
