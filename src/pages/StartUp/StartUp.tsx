@@ -9,11 +9,11 @@ const StartUp = () => {
     <div className="h-screen ">
       <div className="container flex flex-col mt-10 px-8">
         <Header />
-        <div>
+        <>
           <h1 className="my-5 text-3xl font-bold text-center !leading-snug">
             What do you want to <span className="text-primary">Eat</span>?
           </h1>
-        </div>
+        </>
         <div className="bg-secondary w-full p-4 flex items-center rounded-xl relative">
           <input
             type="text"
@@ -22,7 +22,7 @@ const StartUp = () => {
           />
           <IoSearch className="text-2xl bg-transparent absolute right-3 text-textDark opacity-85" />
         </div>
-        <div>
+        <>
           <h3 className="my-5 text-xl font-semibold">Categories</h3>
           <div className="overflow-x-auto">
             <div className="flex gap-4">
@@ -46,7 +46,7 @@ const StartUp = () => {
               </button>
             </div>
           </div>
-        </div>
+        </>
         <div>
           <h3 className="my-5 text-xl font-semibold">Popular</h3>
           <div className="overflow-x-auto"></div>
