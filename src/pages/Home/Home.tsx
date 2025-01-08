@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import { PiHamburgerFill } from "react-icons/pi";
 import { LuPizza } from "react-icons/lu";
 import { RiDrinks2Fill } from "react-icons/ri";
+import api from "@/services/api";
 
 const Home = () => {
   return (
