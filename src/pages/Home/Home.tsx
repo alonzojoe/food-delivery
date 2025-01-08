@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { PiHamburgerFill } from "react-icons/pi";
 import { LuPizza } from "react-icons/lu";
@@ -6,6 +6,28 @@ import { RiDrinks2Fill } from "react-icons/ri";
 import api from "@/services/api";
 
 const Home = () => {
+  const [menu, setMenu] = useState<
+    | {
+        id: string;
+        img: string;
+        nameL: string;
+        dsc: string;
+        price: number;
+        rate: number;
+        country: string;
+      }[]
+    | []
+  >([]);
+
+  useEffect(() => {
+    const fetchMenus = async () => {
+      const response = await api.get("/burgers");
+      setMenu(response.data);
+    };
+
+    fetchMenus();
+  }, []);
+
   return (
     <>
       <>
