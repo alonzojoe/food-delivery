@@ -20,11 +20,21 @@ const Home = () => {
       }[]
     | []
   >([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchMenus = async () => {
-      const response = await api.get("/burgers");
-      setMenus(response.data);
+      setIsLoading(true);
+      try {
+        const response = await api.get("/burgers");
+        setMenus(response.data);
+      } catch (error) {
+        if (error instanceof Error) {
+          throw new Error(`Could not fetch data: ${error?.message}`);
+        }
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchMenus();
@@ -73,36 +83,47 @@ const Home = () => {
       <div>
         <h3 className="my-5 text-xl font-semibold">Popular</h3>
         <div className="grid cols-1 md:grid-cols-2 gap-8">
-          {menus.map((menu) => (
-            <Card key={menu.id}>
-              <div className="relative">
-                <img
-                  src={menu.img}
-                  className="w-full h-40 object-cover rounded-t-lg"
-                  alt="meal"
-                />
-              </div>
-              <div className="p-4 flex justify-between">
-                <div className="flex flex-col justify-between">
-                  <div className="text-lg font-semibold text-gray-800">
-                    {menu.name}
+          {isLoading ? (
+            <>
+              <div className="bg-slate-300 h-48 rounded-lg animate-pulse"></div>
+              <div className="bg-slate-300 h-48 rounded-lg animate-pulse"></div>
+            </>
+          ) : (
+            <>
+              {menus.map((menu) => (
+                <Card key={menu.id}>
+                  <div className="relative">
+                    <img
+                      src={menu.img}
+                      className="w-full h-40 object-cover rounded-t-lg"
+                      alt="meal"
+                    />
                   </div>
+                  <div className="p-4 flex justify-between">
+                    <div className="flex flex-col justify-between">
+                      <div className="text-lg font-semibold text-gray-800">
+                        {menu.name}
+                      </div>
 
-                  <div className="text-sm text-gray-600 font-medium">$12</div>
-                </div>
+                      <div className="text-sm text-gray-600 font-medium">
+                        ${menu.price.toFixed(2)}
+                      </div>
+                    </div>
 
-                <div className="flex flex-col items-end justify-between">
-                  <div className="flex justify-center items-center space-x-1">
-                    <TiStarFullOutline className="text-yellow-500 text-lg" />
-                    <span className="text-gray-500">
-                      {menu.rate.toFixed(2)}
-                    </span>
+                    <div className="flex flex-col items-end justify-between">
+                      <div className="flex justify-center items-center space-x-1">
+                        <TiStarFullOutline className="text-yellow-500 text-lg" />
+                        <span className="text-gray-500">
+                          {menu.rate.toFixed(2)}
+                        </span>
+                      </div>
+                      <div className="text-sm text-gray-500">10 min</div>
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-500">10 min</div>
-                </div>
-              </div>
-            </Card>
-          ))}
+                </Card>
+              ))}
+            </>
+          )}
         </div>
       </div>
     </>
