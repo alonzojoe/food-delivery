@@ -13,8 +13,8 @@ import { RiDrinks2Fill } from "react-icons/ri";
 export const CATEGORIES: Category[] = [
     {
         id: 1,
-        name: "Best Foods",
-        endpoint: `/best-food`,
+        name: "Best",
+        endpoint: `/best-foods`,
         icon: FaAward
     },
     {
@@ -26,7 +26,7 @@ export const CATEGORIES: Category[] = [
     {
         id: 3,
         name: "Pizza",
-        endpoint: `/bbqs`,
+        endpoint: `/pizzas`,
         icon: LuPizza
     },
     {

@@ -6,6 +6,8 @@ import { RiDrinks2Fill } from "react-icons/ri";
 import { TiStarFullOutline } from "react-icons/ti";
 import api from "@/services/api";
 import Card from "@/components/UI/Card";
+import { CATEGORIES } from "@/constants/category";
+import CategoryItem from "@/pages/Home/components/CategoryItem";
 
 const Home = () => {
   const [menus, setMenus] = useState<
@@ -21,12 +23,13 @@ const Home = () => {
     | []
   >([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("/burgers");
 
   useEffect(() => {
     const fetchMenus = async () => {
       setIsLoading(true);
       try {
-        const response = await api.get("/burgers");
+        const response = await api.get(`${selectedCategory}`);
         setMenus(response.data);
       } catch (error) {
         if (error instanceof Error) {
@@ -38,7 +41,7 @@ const Home = () => {
     };
 
     fetchMenus();
-  }, []);
+  }, [selectedCategory]);
 
   return (
     <>
@@ -59,24 +62,16 @@ const Home = () => {
         <h3 className="my-5 text-xl font-semibold">Categories</h3>
         <div className="overflow-x-auto">
           <div className="flex gap-4">
-            <button className="bg-primary py-2 px-3 rounded-2xl flex gap-2 items-center">
-              <span className="bg-white p-1 rounded-lg">
-                <PiHamburgerFill className="text-primary text-xl" />
-              </span>
-              <span className="text-white text-md">Burger</span>
-            </button>
-            <button className="bg-secondary py-2 px-3 rounded-2xl flex gap-2 items-center">
-              <span className="bg-secondary p-1 rounded-lg">
-                <LuPizza className="text-dark text-xl" />
-              </span>
-              <span className="text-dark text-md">Pizza</span>
-            </button>
-            <button className="bg-secondary py-2 px-3 rounded-2xl flex gap-2 items-center">
-              <span className="bg-secondary p-1 rounded-lg">
-                <RiDrinks2Fill className="text-dark text-xl" />
-              </span>
-              <span className="text-dark text-md">Drink</span>
-            </button>
+            {CATEGORIES.map((category) => (
+              <CategoryItem
+                key={category.id}
+                Icon={category.icon}
+                isActive={category.endpoint === selectedCategory}
+                label={category.name}
+                endpoint={category.endpoint}
+                onSelect={setSelectedCategory}
+              />
+            ))}
           </div>
         </div>
       </>
