@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import { PiHamburgerFill } from "react-icons/pi";
-import { LuPizza } from "react-icons/lu";
-import { RiDrinks2Fill } from "react-icons/ri";
 import { TiStarFullOutline } from "react-icons/ti";
 import api from "@/services/api";
 import Card from "@/components/UI/Card";
 import { CATEGORIES } from "@/constants/category";
 import CategoryItem from "@/pages/Home/components/CategoryItem";
+import ImgPlaceholder from "@/assets/images/no-prev.png";
 
 const Home = () => {
   const [menus, setMenus] = useState<
@@ -91,7 +89,10 @@ const Home = () => {
                     <img
                       src={menu.img}
                       className="w-full h-40 object-cover rounded-t-lg"
-                      alt="meal"
+                      alt={menu.name}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = ImgPlaceholder;
+                      }}
                     />
                   </div>
                   <div className="p-4 flex justify-between">

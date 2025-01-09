@@ -8,8 +8,6 @@ import { TbMeat } from "react-icons/tb";
 import { RiDrinks2Fill } from "react-icons/ri";
 
 
-
-
 export const CATEGORIES: Category[] = [
     {
         id: 1,
