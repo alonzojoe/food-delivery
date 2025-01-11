@@ -1,16 +1,16 @@
 import { AiFillHome } from "react-icons/ai";
-import { FaRegStar } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa6";
 import { SlUser } from "react-icons/sl";
 import { MdShoppingCartCheckout } from "react-icons/md";
 const Controls = () => {
   return (
-    <div className="fixed bottom-0 bg-secondary w-full rounded-2xl p-4">
-      <div className="flex items-center justify-between px-5">
+    <div className="fixed bottom-0 w-full">
+      <div className="flex items-center justify-between mx-2 p-4 px-5 bg-secondary rounded-3xl">
         <span className="p-2 rounded-full bg-primary">
           <AiFillHome className="text-2xl text-white" />
         </span>
         <span>
-          <FaRegStar className="text-2xl" />
+          <FaRegHeart className="text-2xl" />
         </span>
         <span>
           <MdShoppingCartCheckout className="text-2xl" />

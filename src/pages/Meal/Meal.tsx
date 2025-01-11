@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { FaLeftLong } from "react-icons/fa6";
-import { MdDeliveryDining } from "react-icons/md";
 import { LuAlarmClock } from "react-icons/lu";
 import { TiStarFullOutline } from "react-icons/ti";
 import { TiPlus, TiMinus } from "react-icons/ti";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaMotorcycle } from "react-icons/fa6";
+import { TbArrowNarrowLeft } from "react-icons/tb";
 
 const selected = {
   id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
@@ -31,7 +30,7 @@ const Meal = () => {
           }}
         ></div>
         <button className="bg-white absolute top-5 left-5 shadow-lg p-4 rounded-lg">
-          <FaLeftLong className="text-xl" />
+          <TbArrowNarrowLeft className="text-xl" />
         </button>
         <button className="bg-white absolute top-5 right-5 shadow-lg p-4 rounded-lg">
           <FaRegHeart className="text-xl" />
