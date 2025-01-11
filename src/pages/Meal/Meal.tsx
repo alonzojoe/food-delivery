@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { FaLeftLong } from "react-icons/fa6";
-import { MdShoppingCartCheckout } from "react-icons/md";
+import { MdDeliveryDining } from "react-icons/md";
+import { LuAlarmClock } from "react-icons/lu";
+import { TiStarFullOutline } from "react-icons/ti";
 import { TiPlus, TiMinus } from "react-icons/ti";
 import { FaRegHeart } from "react-icons/fa6";
+import { FaMotorcycle } from "react-icons/fa6";
 
 const selected = {
   id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
@@ -17,8 +20,8 @@ const selected = {
 const Meal = () => {
   const [count, setCount] = useState(1);
   return (
-    <div className="h-screen w-full">
-      <div className="relative ">
+    <div className="h-screen w-full relative">
+      <div className="relative">
         <div
           className="w-full h-72 rounded-b-3xl shadow-md"
           style={{
@@ -54,7 +57,7 @@ const Meal = () => {
           </button>
         </div>
       </div>
-      <div className="mt-16 container w-full">
+      <div className="mt-16 container h-full">
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-3xl">{selected.name}</h2>
           <div>
@@ -64,12 +67,35 @@ const Meal = () => {
             </span>
           </div>
         </div>
-        <div className="my-5">
-          <h2 className="text-slate-600 text-xl">About</h2>
-          <p className="text-slate-400 text-lg">{selected.dsc}</p>
+
+        <div className="my-8 flex justify-between items-center px-3">
+          <div className="flex items-center gap-2">
+            <FaMotorcycle className="text-warning text-3xl" />
+            <span className="font-semibold text-lg">Free</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <LuAlarmClock className="text-danger text-3xl" />
+            <span className="font-semibold text-lg">15-30min</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <TiStarFullOutline className="text-primary text-3xl" />
+            <span className="font-semibold text-lg">
+              {selected.rate.toFixed(1)}
+            </span>
+          </div>
         </div>
-        <p className="text-3xl my-10">Tuloy ko nalang bukas inaantok nako :/</p>
-        <button className="bg-primary p-5 text-2xl font-semibold w-full text-white rounded-2xl">
+        <div className="my-5">
+          <h2 className="text-textDarky font-semibold text-xl">About</h2>
+          <p className="text-textMuted text-lg">{selected.dsc}</p>
+        </div>
+        <div className="my-5">
+          <h2 className="text-textDarky font-semibold text-xl">Popular In</h2>
+          <p className="text-textMuted text-lg">{selected.country}</p>
+        </div>
+      </div>
+
+      <div className="fixed bottom-5 w-full px-5">
+        <button className="bg-primary p-5 text-xl font-semibold w-full text-white rounded-2xl">
           Add To Cart (${(selected.price * count).toFixed(2)})
         </button>
       </div>

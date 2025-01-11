@@ -12,6 +12,10 @@ export default {
         textDarken: "575661",
         secondary: "#F1ECE7",
         tertiary: "#FAFAFA",
+        textMuted: "#A2A2A8",
+        textDarky: "#2B2934",
+        danger: "#BD2D3C",
+        warning: "#E0B234",
       },
       container: {
         center: true,
