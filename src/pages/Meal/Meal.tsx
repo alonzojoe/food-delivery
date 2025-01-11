@@ -33,10 +33,15 @@ const Meal = () => {
         <button className="bg-white absolute top-5 right-5 shadow-lg p-4 rounded-lg">
           <FaRegHeart className="text-xl" />
         </button>
-        <div className="bg-white flex items-center gap-5 rounded-lg px-5 py-3  absolute -bottom-5 left-1/2 -translate-x-1/2 shadow-xl">
+        <div className="bg-white flex items-center gap-5 rounded-2xl px-5 py-3  absolute -bottom-5 left-1/2 -translate-x-1/2 shadow-xl">
           <button
             className="text-2xl text-textDark"
-            onClick={() => setCount((prev) => prev - 1)}
+            onClick={() =>
+              setCount((prev) => {
+                if (prev === 0) return 0;
+                return prev - 1;
+              })
+            }
           >
             <TiMinus />
           </button>
@@ -65,7 +70,7 @@ const Meal = () => {
         </div>
         <p className="text-3xl my-10">Tuloy ko nalang bukas inaantok nako :/</p>
         <button className="bg-primary p-5 text-2xl font-semibold w-full text-white rounded-2xl">
-          Add To Cart ($ 387.00)
+          Add To Cart (${(selected.price * count).toFixed(2)})
         </button>
       </div>
     </div>
