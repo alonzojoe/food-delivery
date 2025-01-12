@@ -6,29 +6,21 @@ import Card from "@/components/UI/Card";
 import { CATEGORIES } from "@/constants/category";
 import CategoryItem from "@/pages/Home/components/CategoryItem";
 import ImgPlaceholder from "@/assets/images/no-prev.png";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { setMeals } from "@/store/features/mealSlice";
 
 const Home = () => {
-  const [menus, setMenus] = useState<
-    | {
-        id: string;
-        img: string;
-        name: string;
-        dsc: string;
-        price: number;
-        rate: number;
-        country: string;
-      }[]
-    | []
-  >([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("/burgers");
+  const dispatch = useAppDispatch();
+  const meals = useAppSelector((state) => state.meal.meals);
 
   useEffect(() => {
     const fetchMenus = async () => {
       setIsLoading(true);
       try {
         const response = await api.get(`${selectedCategory}`);
-        setMenus(response.data);
+        dispatch(setMeals({ meal: response.data }));
       } catch (error) {
         if (error instanceof Error) {
           throw new Error(`Could not fetch data: ${error?.message}`);
@@ -83,13 +75,13 @@ const Home = () => {
             </>
           ) : (
             <>
-              {menus.map((menu) => (
-                <Card key={menu.id}>
+              {meals.map((meal) => (
+                <Card key={meal.id}>
                   <div className="relative">
                     <img
-                      src={menu.img}
+                      src={meal.img}
                       className="w-full h-40 object-cover rounded-t-lg"
-                      alt={menu.name}
+                      alt={meal.name}
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = ImgPlaceholder;
                       }}
@@ -98,11 +90,11 @@ const Home = () => {
                   <div className="p-4 flex justify-between">
                     <div className="flex flex-col justify-between">
                       <div className="text-lg font-semibold text-gray-800">
-                        {menu.name}
+                        {meal.name}
                       </div>
 
                       <div className="text-sm text-gray-600 font-medium">
-                        ${menu.price.toFixed(2)}
+                        ${meal.price.toFixed(2)}
                       </div>
                     </div>
 
@@ -110,7 +102,7 @@ const Home = () => {
                       <div className="flex justify-center items-center space-x-1">
                         <TiStarFullOutline className="text-yellow-500 text-lg" />
                         <span className="text-gray-500">
-                          {menu.rate.toFixed(2)}
+                          {meal.rate.toFixed(2)}
                         </span>
                       </div>
                       <div className="text-sm text-gray-500">10 min</div>

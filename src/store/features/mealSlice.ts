@@ -22,11 +22,11 @@ const MealSlice = createSlice({
     name: 'meal',
     initialState,
     reducers: {
-        seatMeals(state, action: PayloadAction<{ meal: Meal[] }>) {
+        setMeals(state, action: PayloadAction<{ meal: Meal[] }>) {
             state.meals = action.payload.meal
         },
     }
 })
 
 export default MealSlice.reducer
-export const { seatMeals } = MealSlice.actions
+export const { setMeals } = MealSlice.actions
