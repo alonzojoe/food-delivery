@@ -31,7 +31,7 @@ const Home = () => {
     };
 
     fetchMenus();
-  }, [selectedCategory]);
+  }, [selectedCategory, dispatch]);
 
   return (
     <>

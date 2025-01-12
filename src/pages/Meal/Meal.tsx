@@ -1,3 +1,5 @@
+import { useAppDispatch } from "@/store/store";
+import { addToCart, CartItem } from "@/store/features/cartSlice";
 import { useState } from "react";
 import { LuAlarmClock } from "react-icons/lu";
 import { TiStarFullOutline } from "react-icons/ti";
@@ -18,6 +20,13 @@ const selected = {
 
 const Meal = () => {
   const [count, setCount] = useState(1);
+
+  const dispatch = useAppDispatch();
+
+  const addItem = (selectedItem: CartItem) => {
+    dispatch(addToCart({ item: selectedItem }));
+  };
+
   return (
     <div className="h-screen w-full relative">
       <div className="relative">
@@ -94,7 +103,12 @@ const Meal = () => {
       </div>
 
       <div className="fixed bottom-5 w-full px-5">
-        <button className="bg-primary p-5 text-xl font-semibold w-full text-white rounded-2xl">
+        <button
+          onClick={() =>
+            addItem({ ...selected, quantity: count, amount: selected.price })
+          }
+          className="bg-primary p-5 text-xl font-semibold w-full text-white rounded-2xl"
+        >
           Add To Cart (${(selected.price * count).toFixed(2)})
         </button>
       </div>
