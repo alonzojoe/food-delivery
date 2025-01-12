@@ -40,7 +40,7 @@ const Meal = () => {
             className="text-2xl text-textDark"
             onClick={() =>
               setCount((prev) => {
-                if (prev === 0) return 0;
+                if (prev === 1) return 1;
                 return prev - 1;
               })
             }
