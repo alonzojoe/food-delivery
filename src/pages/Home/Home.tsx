@@ -8,29 +8,15 @@ import CategoryItem from "@/pages/Home/components/CategoryItem";
 import ImgPlaceholder from "@/assets/images/no-prev.png";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { setMeals } from "@/store/features/mealSlice";
+import { fetchMeals } from "@/store/thunks/mealThunks";
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("/burgers");
   const dispatch = useAppDispatch();
-  const meals = useAppSelector((state) => state.meal.meals);
+  const { isLoading, meals } = useAppSelector((state) => state.meal);
 
   useEffect(() => {
-    const fetchMenus = async () => {
-      setIsLoading(true);
-      try {
-        const response = await api.get(`${selectedCategory}`);
-        dispatch(setMeals({ meal: response.data }));
-      } catch (error) {
-        if (error instanceof Error) {
-          throw new Error(`Could not fetch data: ${error?.message}`);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMenus();
+    dispatch(fetchMeals(selectedCategory));
   }, [selectedCategory, dispatch]);
 
   return (
