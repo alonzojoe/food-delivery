@@ -6,14 +6,14 @@ const Controls = () => {
   return (
     <div className="fixed bottom-0 w-full">
       <div className="flex items-center justify-between mx-2 p-4 px-5 bg-secondary rounded-3xl">
-        <span className="p-2 rounded-full bg-primary">
-          <AiFillHome className="text-2xl text-white" />
+        <span>
+          <AiFillHome className="text-2xl" />
         </span>
         <span>
           <FaRegHeart className="text-2xl" />
         </span>
-        <span>
-          <MdShoppingCartCheckout className="text-2xl" />
+        <span className="p-2 rounded-full bg-primary">
+          <MdShoppingCartCheckout className="text-2xl text-white" />
         </span>
         <span>
           <SlUser className="text-2xl" />

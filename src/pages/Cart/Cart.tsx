@@ -2,41 +2,70 @@ import { TiPlus, TiMinus } from "react-icons/ti";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { HiOutlineTicket } from "react-icons/hi";
 import { ImSpoonKnife } from "react-icons/im";
-const selected = {
-  id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
-  img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/89948/chicago-deep-dish-pizza-4-pack.49927daafa8c147fe9bb2a113e56668e.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
-  name: "My Pi Pizza",
-  dsc: "Chicago Deep Dish Pizza - 4 Pack",
-  price: 129,
-  rate: 5,
-  country: "Chicago, IL",
-};
 
-const items = [1, 2];
+const items = [
+  {
+    id: "the-gramercy-tavern-burger-4-pack",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/137148/Gramercy-Tavern-Burger-and-Kielbasa-Kit-6.4.21-72ppi-1x1-15.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Gramercy Tavern",
+    dsc: "The Gramercy Tavern Burger - 4 Pack",
+    price: 99,
+    rate: 5,
+    country: "New York, NY",
+    qty: 3,
+  },
+  {
+    id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/89948/chicago-deep-dish-pizza-4-pack.49927daafa8c147fe9bb2a113e56668e.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "My Pi Pizza",
+    dsc: "Chicago Deep Dish Pizza - 4 Pack",
+    price: 129,
+    rate: 5,
+    country: "Chicago, IL",
+    qty: 1,
+  },
+  {
+    id: "bo-ssam-dinner-for-4-6",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/110906/bo-ssam-dinner-for-4.c4a32e8801e2f0283e0565bbe8493149.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Momofuku",
+    dsc: "Half Bo Ssäm Dinner for 4-6",
+    price: 169,
+    rate: 4,
+    country: "New York, NY",
+    qty: 1,
+  },
+];
 
 const Cart = () => {
+  const totalAmount = items.reduce(
+    (total, curr) => total + curr.price * curr.qty,
+    0
+  );
+
   return (
     <div className="container my-5  h-screen">
-      <h2 className="text-2xl mb-2 font-semibold text-primary">Cart</h2>
+      <h2 className="text-2xl mb-2 font-semibold text-primary border-primary border-b-1 decoration-dashed">
+        Items in Your Cart:
+      </h2>
       <div className="space-y-3">
-        {items.map((item) => (
-          <div className="border-b-2 border-slate-300 py-2" key={item}>
+        {items.map((item, index) => (
+          <div className="border-b-2 border-slate-300 py-2" key={index}>
             <div className="flex items-center justify-between">
               <div className="flex items-center justify-start gap-3">
                 <div>
                   <img
                     className="w-auto h-16 object-cover rounded-lg"
-                    src={selected.img}
-                    alt={`img-${selected.name}`}
+                    src={item.img}
+                    alt={`img-${item.name}`}
                   />
                 </div>
                 <div>
                   <span className="text-md text-primary font-semibold text-ellipsis whitespace-nowrap overflow-hidden">
-                    {selected.name}
+                    {item.name}
                   </span>
                   <span className="block mt-1 text-sm text-slate-500 font-semibold">
                     <small className="text-primary">$</small>
-                    {selected.price.toFixed(2)}
+                    {(item.price * item.qty).toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -46,7 +75,9 @@ const Cart = () => {
                     <button className="text-sm text-primary">
                       <TiPlus className="text-md font-bold" />
                     </button>
-                    <span className="text-md font-semibold px-2">1</span>
+                    <span className="text-md font-semibold px-2">
+                      {item.qty}
+                    </span>
                     <button className="text-md text-textDark">
                       <TiMinus className="text-md font-bold" />
                     </button>
@@ -66,7 +97,8 @@ const Cart = () => {
         <div className="flex justify-between items-center text-md">
           <h2 className="font-bold">Subtotal</h2>
           <p className="font-bold">
-            <small className="text-primary">$</small>129.00
+            <small className="text-primary">$</small>
+            {totalAmount.toFixed(2)}
           </p>
         </div>
         <div className="flex justify-between items-center text-md font-normal">
@@ -114,7 +146,8 @@ const Cart = () => {
           Total <small className="text-gray-400">(inc. VAT)</small>
         </h2>
         <p className="font-bold">
-          <small className="text-primary">$</small>129.00
+          <small className="text-primary">$</small>
+          {totalAmount.toFixed(2)}
         </p>
       </div>
       <div className="w-full">
