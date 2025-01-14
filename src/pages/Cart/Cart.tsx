@@ -16,7 +16,7 @@ const items = [1, 2];
 
 const Cart = () => {
   return (
-    <div className="container my-5">
+    <div className="container my-5  h-screen">
       <h2 className="text-2xl mb-2 font-semibold text-primary">Cart</h2>
       <div className="space-y-3">
         {items.map((item) => (
@@ -61,6 +61,66 @@ const Cart = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="mt-5 space-y-1">
+        <div className="flex justify-between items-center text-md">
+          <h2 className="font-bold">Subtotal</h2>
+          <p className="font-bold">
+            <small className="text-primary">$</small>129.00
+          </p>
+        </div>
+        <div className="flex justify-between items-center text-md font-normal">
+          <h2>Discount</h2>
+          <p>
+            <small className="text-primary">$</small>0.00
+          </p>
+        </div>
+        <div className="flex justify-between items-center text-md font-normal">
+          <h2>Delivery Fee</h2>
+          <p>
+            <small className="mx-5 px-3 bg-primary rounded-lg text-white">
+              Free
+            </small>
+            <small className="text-primary">$</small>0.00
+          </p>
+        </div>
+        <div className="flex items-center gap-2 !my-2">
+          <HiOutlineTicket className="text-2xl text-primary -rotate-90" />
+          <span className="font-semibold text-primary">Apply a voucher</span>
+        </div>
+      </div>
+      <div className="mt-9">
+        <>
+          <div className="flex items-center justify-between">
+            <div className="space-x-2">
+              <ImSpoonKnife className="text-2xl text-primary inline" />
+              <span className="font-semibold text-textDark inline">
+                Cutlery
+              </span>
+            </div>
+            <input
+              id="custom-checkbox"
+              type="checkbox"
+              className="w-5 h-5 text-primary bg-gray-100 border-gray-300 rounded focus:text-primary focus:ring-2 checked:bg-primary"
+            />
+          </div>
+          <small className="text-gray-500 !leading-tight">
+            We won&apos;t bring cutlery. Thanks for helping us reduce waste.
+          </small>
+        </>
+      </div>
+      <div className="flex justify-between items-center text-md my-5">
+        <h2 className="font-bold">
+          Total <small className="text-gray-400">(inc. VAT)</small>
+        </h2>
+        <p className="font-bold">
+          <small className="text-primary">$</small>129.00
+        </p>
+      </div>
+      <div className="w-full">
+        <button className="bg-primary p-4 text-sm font-normal w-full text-white rounded-2xl">
+          Review Payment and Address
+        </button>
       </div>
     </div>
   );
