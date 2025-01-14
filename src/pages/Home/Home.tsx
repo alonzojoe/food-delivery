@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { TiStarFullOutline } from "react-icons/ti";
-import api from "@/services/api";
 import Card from "@/components/UI/Card";
 import { CATEGORIES } from "@/constants/category";
 import CategoryItem from "@/pages/Home/components/CategoryItem";
 import ImgPlaceholder from "@/assets/images/no-prev.png";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { setMeals } from "@/store/features/mealSlice";
 import { fetchMeals } from "@/store/thunks/mealThunks";
 
 const Home = () => {
