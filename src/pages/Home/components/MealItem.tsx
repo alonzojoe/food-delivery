@@ -1,16 +1,25 @@
+import { Fragment } from "react/jsx-runtime";
 import Card from "@/components/UI/Card";
 import ImgPlaceholder from "@/assets/images/no-prev.png";
 import { TiStarFullOutline } from "react-icons/ti";
 import { type Meal } from "@/store/features/mealSlice";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type MealItemProps = {
   meal: Meal;
 };
 
 const MealItem = ({ meal }: MealItemProps) => {
+  const navigate = useNavigate();
+
+  const selectMeal = (meal: Meal) => {
+    localStorage.setItem("CHOOSEN_MEAL", JSON.stringify(meal));
+
+    navigate(`/meal/${meal.id}`);
+  };
+
   return (
-    <Link to={`/meal/${meal.id}`}>
+    <div className="cursor-pointer" onClick={() => selectMeal(meal)}>
       <Card key={meal.id}>
         <div className="relative">
           <img
@@ -42,7 +51,7 @@ const MealItem = ({ meal }: MealItemProps) => {
           </div>
         </div>
       </Card>
-    </Link>
+    </div>
   );
 };
 
