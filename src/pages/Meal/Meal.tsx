@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useAppDispatch } from "@/store/store";
-import { addToCart, CartItem } from "@/store/features/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { addToCart } from "@/store/features/cartSlice";
 import { useState } from "react";
 import { LuAlarmClock } from "react-icons/lu";
 import { TiStarFullOutline } from "react-icons/ti";
@@ -9,8 +9,9 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FaMotorcycle } from "react-icons/fa6";
 import { TbArrowNarrowLeft } from "react-icons/tb";
 import { useNavigate, Navigate } from "react-router-dom";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import { type Meal } from "@/store/features/mealSlice";
+import { type CartItem } from "@/store/features/cartSlice";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 // const selected = {
 //   id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
@@ -25,10 +26,28 @@ import { type Meal } from "@/store/features/mealSlice";
 const Meal = () => {
   const [choosenMeal] = useLocalStorage<Meal | null>("CHOOSEN_MEAL", null);
   const [count, setCount] = useState(1);
+  const { cart } = useAppSelector((state) => state.cart);
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[] | null>(
+    "CART",
+    null
+  );
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   console.log("stored", choosenMeal);
+
+  useEffect(() => {
+    cartItems?.forEach(() => {
+      console.log("cart items", cartItems);
+    });
+  }, [cartItems, dispatch]);
+
+  useEffect(() => {
+    console.log("cart changes", cart);
+    console.log("localStorage cart", cartItems);
+    setCartItems(cartItems);
+  }, [cart, cartItems, setCartItems]);
 
   const addItem = (selectedItem: CartItem) => {
     dispatch(addToCart({ item: selectedItem }));
@@ -131,5 +150,18 @@ const Meal = () => {
     </div>
   );
 };
+
+function isCartItem(item: unknown): item is CartItem {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    "id" in item &&
+    "quantity" in item &&
+    "amount" in item &&
+    typeof (item as CartItem).id === "string" &&
+    typeof (item as CartItem).quantity === "number" &&
+    typeof (item as CartItem).amount === "number"
+  );
+}
 
 export default Meal;
