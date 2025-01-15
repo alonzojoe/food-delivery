@@ -3,10 +3,10 @@ import { IoSearch } from "react-icons/io5";
 import { TiStarFullOutline } from "react-icons/ti";
 import Card from "@/components/UI/Card";
 import { CATEGORIES } from "@/constants/category";
-import CategoryItem from "@/pages/Home/components/CategoryItem";
 import ImgPlaceholder from "@/assets/images/no-prev.png";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { fetchMeals } from "@/store/thunks/mealThunks";
+import Categories from "@/pages/Home/components/Categories";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("/burgers");
@@ -34,20 +34,11 @@ const Home = () => {
       </div>
       <>
         <h3 className="my-5 text-xl font-semibold">Categories</h3>
-        <div className="overflow-x-auto">
-          <div className="flex gap-4">
-            {CATEGORIES.map((category) => (
-              <CategoryItem
-                key={category.id}
-                Icon={category.icon}
-                isActive={category.endpoint === selectedCategory}
-                label={category.name}
-                endpoint={category.endpoint}
-                onSelect={setSelectedCategory}
-              />
-            ))}
-          </div>
-        </div>
+        <Categories
+          categories={CATEGORIES}
+          selectedCategory={selectedCategory}
+          setCategory={setSelectedCategory}
+        />
       </>
       <div>
         <h3 className="my-5 text-xl font-semibold">Popular</h3>
