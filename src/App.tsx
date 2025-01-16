@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import StartUp from "@/pages/StartUp/StartUp";
 import AppLayout from "@/layouts/AppLayout";
 import Home from "@/pages/Home/Home";
@@ -15,6 +15,7 @@ function App() {
           <Route path="cart" element={<Cart />} />
         </Route>
         <Route path="/meal/:id" element={<Meal />}></Route>
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </BrowserRouter>
   );

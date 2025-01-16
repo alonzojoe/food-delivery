@@ -1,7 +1,7 @@
-import { MdShoppingCartCheckout } from "react-icons/md";
 import { RiMenu5Fill } from "react-icons/ri";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaCaretDown } from "react-icons/fa";
+import { IoMdCart } from "react-icons/io";
 
 const Header = () => {
   return (
@@ -19,7 +19,7 @@ const Header = () => {
         </span>
       </div>
       <div className="bg-secondary p-3 rounded-lg">
-        <MdShoppingCartCheckout className="text-xl text-textDark" />
+        <IoMdCart className="text-xl text-textDark" />
       </div>
     </div>
   );

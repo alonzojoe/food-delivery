@@ -27,18 +27,11 @@ const Meal = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [choosenMeal] = useLocalStorage<Meal | null>("CHOOSEN_MEAL", null);
-  // const [cartItems, setCartItems] = useLocalStorage<CartItem[] | null>(
-  //   "CART",
-  //   null
-  // );
 
   const { cart } = useAppSelector((state) => state.cart);
 
   const [count, setCount] = useState(1);
 
-  // console.log("stored", choosenMeal);
-
-  // const isInitialized = useRef(false);
   const isMounted = useRef(false);
   useEffect(() => {
     const storedCart = localStorage.getItem("CART");
