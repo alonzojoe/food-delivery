@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { addToCart } from "@/store/features/cartSlice";
+import { addToCart, setCart } from "@/store/features/cartSlice";
 import { useState } from "react";
 import { LuAlarmClock } from "react-icons/lu";
 import { TiStarFullOutline } from "react-icons/ti";
@@ -24,33 +24,48 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 // };
 
 const Meal = () => {
-  const [choosenMeal] = useLocalStorage<Meal | null>("CHOOSEN_MEAL", null);
-  const [count, setCount] = useState(1);
-  const { cart } = useAppSelector((state) => state.cart);
-  const [cartItems, setCartItems] = useLocalStorage<CartItem[] | null>(
-    "CART",
-    null
-  );
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [choosenMeal] = useLocalStorage<Meal | null>("CHOOSEN_MEAL", null);
+  // const [cartItems, setCartItems] = useLocalStorage<CartItem[] | null>(
+  //   "CART",
+  //   null
+  // );
 
-  console.log("stored", choosenMeal);
+  const { cart } = useAppSelector((state) => state.cart);
+
+  const [count, setCount] = useState(1);
+
+  // console.log("stored", choosenMeal);
+
+  // const isInitialized = useRef(false);
+  const isMounted = useRef(false);
+  useEffect(() => {
+    const storedCart = localStorage.getItem("CART");
+    if (storedCart) {
+      const parsedCart: CartItem[] = JSON.parse(storedCart);
+      dispatch(setCart({ meals: parsedCart }));
+    }
+
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, [dispatch]);
 
   useEffect(() => {
-    cartItems?.forEach(() => {
-      console.log("cart items", cartItems);
-    });
-  }, [cartItems, dispatch]);
+    if (isMounted.current) {
+      console.log("effect setlocalStorage runs");
+      localStorage.setItem("CART", JSON.stringify(cart));
+    }
 
-  useEffect(() => {
-    console.log("cart changes", cart);
-    console.log("localStorage cart", cartItems);
-    setCartItems(cartItems);
-  }, [cart, cartItems, setCartItems]);
+    console.log("current cart items", cart);
+  }, [cart]);
 
   const addItem = (selectedItem: CartItem) => {
     dispatch(addToCart({ item: selectedItem }));
+    console.log("updated cart", cart);
   };
 
   if (!choosenMeal) return <Navigate to={"/home"} />;
@@ -150,18 +165,5 @@ const Meal = () => {
     </div>
   );
 };
-
-function isCartItem(item: unknown): item is CartItem {
-  return (
-    typeof item === "object" &&
-    item !== null &&
-    "id" in item &&
-    "quantity" in item &&
-    "amount" in item &&
-    typeof (item as CartItem).id === "string" &&
-    typeof (item as CartItem).quantity === "number" &&
-    typeof (item as CartItem).amount === "number"
-  );
-}
 
 export default Meal;
