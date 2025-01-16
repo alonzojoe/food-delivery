@@ -1,3 +1,8 @@
+import { useEffect } from "react";
+import { setCart } from "@/store/features/cartSlice";
+import { useAppSelector, useAppDispatch } from "@/store/store";
+import { type CartItem } from "@/store/features/cartSlice";
+
 import { TiPlus, TiMinus } from "react-icons/ti";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { HiOutlineTicket } from "react-icons/hi";
@@ -37,10 +42,22 @@ const items = [
 ];
 
 const Cart = () => {
+  const dispatch = useAppDispatch();
+
   const totalAmount = items.reduce(
     (total, curr) => total + curr.price * curr.qty,
     0
   );
+
+  const { cart } = useAppSelector((state) => state.cart);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("CART");
+    if (storedCart) {
+      const parsedCart: CartItem[] = JSON.parse(storedCart);
+      dispatch(setCart({ meals: parsedCart }));
+    }
+  }, [dispatch]);
 
   return (
     <div className="container my-5  h-screen">
@@ -48,7 +65,7 @@ const Cart = () => {
         Items in Your Cart:
       </h2>
       <div className="space-y-3">
-        {items.map((item, index) => (
+        {cart.map((item, index) => (
           <div className="border-b-2 border-slate-300 py-2" key={index}>
             <div className="flex items-center justify-between">
               <div className="flex items-center justify-start gap-3">
@@ -65,7 +82,7 @@ const Cart = () => {
                   </span>
                   <span className="block mt-1 text-sm text-slate-500 font-semibold">
                     <small className="text-primary">$</small>
-                    {(item.price * item.qty).toFixed(2)}
+                    {(item.price * item.quantity).toFixed(2)}
                   </span>
                 </div>
               </div>
