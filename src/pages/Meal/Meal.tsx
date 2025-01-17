@@ -64,7 +64,7 @@ const Meal = () => {
   if (!choosenMeal) return <Navigate to={"/home"} />;
 
   return (
-    <div className="h-screen w-full relative">
+    <div className="h-dvh w-full relative">
       <div className="relative">
         <div
           className="w-full h-72 rounded-b-3xl shadow-md"

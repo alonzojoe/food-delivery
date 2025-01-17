@@ -3,9 +3,7 @@ import { setCart } from "@/store/features/cartSlice";
 import { useAppDispatch } from "@/store/store";
 import { type CartItem } from "@/store/features/cartSlice";
 import CartItems from "@/pages/Cart/components/CartItems";
-
-import { HiOutlineTicket } from "react-icons/hi";
-import { ImSpoonKnife } from "react-icons/im";
+import CartComputation from "@/pages/Cart/components/CartComputation";
 
 const items = [
   {
@@ -57,61 +55,14 @@ const Cart = () => {
   }, [dispatch]);
 
   return (
-    <div className="container my-5  h-screen">
+    <div className="container my-5  h-dvh">
       <h2 className="text-2xl mb-2 font-semibold text-primary border-primary border-b-1 decoration-dashed">
         Items in Your Cart:
       </h2>
       <div className="space-y-3">
         <CartItems />
       </div>
-      <div className="mt-5 space-y-1">
-        <div className="flex justify-between items-center text-md">
-          <h2 className="font-bold">Subtotal</h2>
-          <p className="font-bold">
-            <small className="text-primary">$</small>
-            {totalAmount.toFixed(2)}
-          </p>
-        </div>
-        <div className="flex justify-between items-center text-md font-normal">
-          <h2>Discount</h2>
-          <p>
-            <small className="text-primary">$</small>0.00
-          </p>
-        </div>
-        <div className="flex justify-between items-center text-md font-normal">
-          <h2>Delivery Fee</h2>
-          <p>
-            <small className="mx-5 px-3 bg-primary rounded-lg text-white">
-              Free
-            </small>
-            <small className="text-primary">$</small>0.00
-          </p>
-        </div>
-        <div className="flex items-center gap-2 !my-2">
-          <HiOutlineTicket className="text-2xl text-primary -rotate-90" />
-          <span className="font-semibold text-primary">Apply a voucher</span>
-        </div>
-      </div>
-      <div className="mt-9">
-        <>
-          <div className="flex items-center justify-between">
-            <div className="space-x-2">
-              <ImSpoonKnife className="text-2xl text-primary inline" />
-              <span className="font-semibold text-textDark inline">
-                Cutlery
-              </span>
-            </div>
-            <input
-              id="custom-checkbox"
-              type="checkbox"
-              className="w-5 h-5 text-primary bg-gray-100 border-gray-300 rounded focus:text-primary focus:ring-2 checked:bg-primary"
-            />
-          </div>
-          <small className="text-gray-500 !leading-tight">
-            We won&apos;t bring cutlery. Thanks for helping us reduce waste.
-          </small>
-        </>
-      </div>
+      <CartComputation totalAmount={totalAmount} />
       <div className="flex justify-between items-center text-md my-5">
         <h2 className="font-bold">
           Total <small className="text-gray-400">(inc. VAT)</small>

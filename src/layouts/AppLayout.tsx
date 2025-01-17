@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 const AppLayout = () => {
   return (
-    <div className="h-screen">
+    <div className="h-dvh">
       <div className="container flex flex-col mt-10 px-8">
         <Header />
         <Outlet />
