@@ -8,7 +8,7 @@ export interface CartItem extends Meal {
 }
 
 export interface CartState {
-    cart: CartItem[],
+    cart: CartItem[] | [],
     totalAmount: number,
 }
 
@@ -23,19 +23,19 @@ const CartSlice = createSlice({
     reducers: {
         setCart(state, action: PayloadAction<{ meals: CartItem[] }>) {
             state.cart = action.payload.meals;
+            state.totalAmount = action.payload.meals.reduce((total, current) => total + (current.price * current.quantity), 0)
+
+
         },
         addToCart(state, action: PayloadAction<{ item: CartItem }>) {
-            const { item } = action.payload
+            const { item } = action.payload;
 
-            const existingItem = state.cart.find((cartItem) => cartItem.id === item.id)
+            const existingItem = state.cart.find((cartItem) => cartItem.id === item.id);
 
             if (existingItem) {
-
                 existingItem.quantity += item.quantity;
-                // existingItem.amount += item.amount;
-
             } else {
-                state.cart.push({ ...item })
+                state.cart.push(item as CartItem);
             }
 
             state.totalAmount = state.cart.reduce((total, current) => total + current.price * current.quantity, 0)

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { setCart } from "@/store/features/cartSlice";
-import { useAppDispatch } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import { type CartItem } from "@/store/features/cartSlice";
 import CartItems from "@/pages/Cart/components/CartItems";
 import CartComputation from "@/pages/Cart/components/CartComputation";
@@ -41,10 +41,7 @@ const items = [
 const Cart = () => {
   const dispatch = useAppDispatch();
 
-  const totalAmount = items.reduce(
-    (total, curr) => total + curr.price * curr.qty,
-    0
-  );
+  const { totalAmount } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     const storedCart = localStorage.getItem("CART");
