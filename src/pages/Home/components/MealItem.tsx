@@ -38,7 +38,7 @@ const MealItem = ({ meal }: MealItemProps) => {
             </div>
 
             <div className="text-sm text-gray-600 font-medium">
-              ${meal.price.toFixed(2)}
+              <small className="text-primary">$</small> {meal.price.toFixed(2)}
             </div>
           </div>
 

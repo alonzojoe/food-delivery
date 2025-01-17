@@ -54,7 +54,7 @@ export const CATEGORIES: Category[] = [
     {
         id: 8,
         name: "Pork",
-        endpoint: `/pork`,
+        endpoint: `/porks`,
         icon: TbMeat
     },
     {
