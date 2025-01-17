@@ -11,7 +11,7 @@ const CartItem = ({ item }: CartItemProps) => {
     <div className="border-b-2 border-slate-300 py-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-start gap-3">
-          <div>
+          <div className="flex-shrink-0">
             <img
               className="w-auto h-16 object-cover rounded-lg"
               src={item.img}
@@ -19,7 +19,11 @@ const CartItem = ({ item }: CartItemProps) => {
             />
           </div>
           <div>
-            <span className="text-md text-primary font-semibold text-ellipsis whitespace-nowrap overflow-hidden">
+            {/* text-ellipsis whitespace-nowrap overflow-hidden */}
+            <span
+              className="text-md text-primary font-semibold"
+              title={item.name} // Tooltip for full name
+            >
               {item.name}
             </span>
             <span className="block mt-1 text-sm text-slate-500 font-semibold">
