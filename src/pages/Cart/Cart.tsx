@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { setCart } from "@/store/features/cartSlice";
-import { useAppSelector, useAppDispatch } from "@/store/store";
+import { useAppDispatch } from "@/store/store";
 import { type CartItem } from "@/store/features/cartSlice";
+import CartItems from "@/pages/Cart/components/CartItems";
 
-import { TiPlus, TiMinus } from "react-icons/ti";
-import { BsFillTrash3Fill } from "react-icons/bs";
 import { HiOutlineTicket } from "react-icons/hi";
 import { ImSpoonKnife } from "react-icons/im";
 
@@ -49,8 +48,6 @@ const Cart = () => {
     0
   );
 
-  const { cart } = useAppSelector((state) => state.cart);
-
   useEffect(() => {
     const storedCart = localStorage.getItem("CART");
     if (storedCart) {
@@ -65,50 +62,7 @@ const Cart = () => {
         Items in Your Cart:
       </h2>
       <div className="space-y-3">
-        {cart.map((item, index) => (
-          <div className="border-b-2 border-slate-300 py-2" key={index}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center justify-start gap-3">
-                <div>
-                  <img
-                    className="w-auto h-16 object-cover rounded-lg"
-                    src={item.img}
-                    alt={`img-${item.name}`}
-                  />
-                </div>
-                <div>
-                  <span className="text-md text-primary font-semibold text-ellipsis whitespace-nowrap overflow-hidden">
-                    {item.name}
-                  </span>
-                  <span className="block mt-1 text-sm text-slate-500 font-semibold">
-                    <small className="text-primary">$</small>
-                    {(item.price * item.quantity).toFixed(2)}
-                  </span>
-                </div>
-              </div>
-              <div className="flex gap-2 justify-end items-center">
-                <div className="bg-white rounded-2xl px-3 py-2 shadow-xl">
-                  <div className="flex flex-col gap-2 items-center justify-between">
-                    <button className="text-sm text-primary">
-                      <TiPlus className="text-md font-bold" />
-                    </button>
-                    <span className="text-md font-semibold px-2">
-                      {item.qty}
-                    </span>
-                    <button className="text-md text-textDark">
-                      <TiMinus className="text-md font-bold" />
-                    </button>
-                  </div>
-                </div>
-                <div>
-                  <span className="cursor-pointer">
-                    <BsFillTrash3Fill className="text-md text-red-500" />
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+        <CartItems />
       </div>
       <div className="mt-5 space-y-1">
         <div className="flex justify-between items-center text-md">
