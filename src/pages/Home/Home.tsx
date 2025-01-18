@@ -18,9 +18,11 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(searchMeal({ keyword: debounceSearch }));
+    console.log("debounceSearch:", debounceSearch);
   }, [debounceSearch, dispatch]);
 
   useEffect(() => {
+    setSearch("");
     dispatch(fetchMeals(selectedCategory));
   }, [selectedCategory, dispatch]);
 
@@ -35,6 +37,7 @@ const Home = () => {
           className="bg-transparent text-lg p-1 font-semibold ring-0 border-0 outline-none w-full placeholder:opacity-45"
           placeholder="Search your food"
           onChange={(e) => setSearch(e.target.value)}
+          value={search}
         />
         <IoSearch className="text-2xl bg-transparent absolute right-3 text-textDark opacity-85" />
       </div>

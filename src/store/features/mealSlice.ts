@@ -12,14 +12,16 @@ export interface Meal {
 }
 
 export interface MealState {
-    isLoading: boolean,
-    meals: Meal[] | [],
-    error: string | null,
+    isLoading: boolean;
+    meals: Meal[] | [];
+    allmeals: Meal[] | [];
+    error: string | null;
 }
 
 const initialState: MealState = {
     isLoading: false,
     meals: [],
+    allmeals: [],
     error: null,
 }
 
@@ -35,10 +37,10 @@ const MealSlice = createSlice({
 
             state.isLoading = true
 
-            state.meals.filter((meal) =>
-                meal.name.toLowerCase() === keyword.toLowerCase() ||
-                meal.dsc.toLowerCase() === keyword.toLowerCase()
-            )
+            state.meals = state.allmeals.filter((meal) => {
+                if (keyword.trim() === '') return true;
+                return meal.name.toLowerCase().includes(keyword.toLowerCase());
+            });
 
             state.isLoading = false
         }
@@ -51,6 +53,7 @@ const MealSlice = createSlice({
             })
             .addCase(fetchMeals.fulfilled, (state, action) => {
                 state.isLoading = false
+                state.allmeals = action.payload.meals
                 state.meals = action.payload.meals
             })
             .addCase(fetchMeals.rejected, (state, action) => {
