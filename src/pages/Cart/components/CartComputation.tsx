@@ -9,50 +9,52 @@ const CartComputation = ({ totalAmount }: CartComputationProps) => {
   return (
     <>
       <table className="mt-5 border-collapse w-full">
-        <tr>
-          <td className="text-left">
-            <h2 className="font-bold">Subtotal</h2>
-          </td>
-          <td className="text-right">
-            <p className="font-bold">
-              <small className="text-primary">$ </small>
-              {totalAmount.toFixed(2)}
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td className="text-left">
-            <h2>Discount</h2>
-          </td>
-          <td className="text-right">
-            <p>
-              <small className="text-primary">$</small>0.00
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td className="text-left">
-            <h2>Delivery Fee</h2>
-          </td>
-          <td className="text-right">
-            <p>
-              <small className="mx-5 px-3 bg-primary rounded-lg text-white">
-                Free
-              </small>
-              <small className="text-primary">$</small>0.00
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td colSpan={2}>
-            <div className="flex items-center gap-2 !my-2">
-              <HiOutlineTicket className="text-2xl text-primary -rotate-90" />
-              <span className="font-semibold text-primary">
-                Apply a voucher
-              </span>
-            </div>
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td className="text-left">
+              <h2 className="font-bold">Subtotal</h2>
+            </td>
+            <td className="text-right">
+              <p className="font-bold">
+                <small className="text-primary">$ </small>
+                {totalAmount.toFixed(2)}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td className="text-left">
+              <h2>Discount</h2>
+            </td>
+            <td className="text-right">
+              <p>
+                <small className="text-primary">$</small>0.00
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td className="text-left">
+              <h2>Delivery Fee</h2>
+            </td>
+            <td className="text-right">
+              <p>
+                <small className="mx-5 px-3 bg-primary rounded-lg text-white">
+                  Free
+                </small>
+                <small className="text-primary">$</small>0.00
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2}>
+              <div className="flex items-center gap-2 !my-2">
+                <HiOutlineTicket className="text-2xl text-primary -rotate-90" />
+                <span className="font-semibold text-primary">
+                  Apply a voucher
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
       </table>
       <div className="mt-5">
         <>
