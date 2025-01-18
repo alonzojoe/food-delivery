@@ -50,9 +50,9 @@ const Meal = () => {
   // }, [cart]);
 
   const addItem = (selectedItem: CartItem) => {
-    const updatedCart: CartItem[] = cart;
+    const updatedCart: CartItem[] = [...cart];
     updatedCart.push(selectedItem);
-    localStorage.setItem("CART", JSON.stringify(cart));
+    localStorage.setItem("CART", JSON.stringify(updatedCart));
     dispatch(addToCart({ item: selectedItem }));
     console.log("updated cart", cart);
   };
