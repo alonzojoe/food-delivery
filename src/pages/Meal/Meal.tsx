@@ -47,16 +47,19 @@ const Meal = () => {
     };
   }, [dispatch]);
 
-  useEffect(() => {
-    if (isMounted.current) {
-      console.log("effect setlocalStorage runs");
-      localStorage.setItem("CART", JSON.stringify(cart));
-    }
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //     console.log("effect setlocalStorage runs");
+  //     localStorage.setItem("CART", JSON.stringify(cart));
+  //   }
 
-    console.log("current cart items", cart);
-  }, [cart]);
+  //   console.log("current cart items", cart);
+  // }, [cart]);
 
   const addItem = (selectedItem: CartItem) => {
+    const updatedCart: CartItem[] = cart;
+    updatedCart.push(selectedItem);
+    localStorage.setItem("CART", JSON.stringify(cart));
     dispatch(addToCart({ item: selectedItem }));
     console.log("updated cart", cart);
   };
