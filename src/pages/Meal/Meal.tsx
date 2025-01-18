@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart, setCart } from "@/store/features/cartSlice";
 import { useState } from "react";
@@ -32,19 +32,12 @@ const Meal = () => {
 
   const [count, setCount] = useState(1);
 
-  const isMounted = useRef(false);
   useEffect(() => {
     const storedCart = localStorage.getItem("CART");
     if (storedCart) {
       const parsedCart: CartItem[] = JSON.parse(storedCart);
       dispatch(setCart({ meals: parsedCart }));
     }
-
-    isMounted.current = true;
-
-    return () => {
-      isMounted.current = false;
-    };
   }, [dispatch]);
 
   // useEffect(() => {
