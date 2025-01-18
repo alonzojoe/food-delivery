@@ -1,4 +1,3 @@
-import { Fragment } from "react/jsx-runtime";
 import Card from "@/components/UI/Card";
 import ImgPlaceholder from "@/assets/images/no-prev.png";
 import { TiStarFullOutline } from "react-icons/ti";

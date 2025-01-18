@@ -6,11 +6,19 @@ import { fetchMeals } from "@/store/thunks/mealThunks";
 import Categories from "@/pages/Home/components/Categories";
 import SekeletonMeal from "@/pages/Home/components/SekeletonMeal";
 import Meals from "@/pages/Home/components/Meals";
-
+import useDebounce from "@/hooks/useDebounce";
+import { searchMeal } from "@/store/features/mealSlice";
 const Home = () => {
+  const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("/burgers");
   const dispatch = useAppDispatch();
   const { isLoading, meals } = useAppSelector((state) => state.meal);
+
+  const debounceSearch = useDebounce(search);
+
+  useEffect(() => {
+    dispatch(searchMeal({ keyword: debounceSearch }));
+  }, [debounceSearch, dispatch]);
 
   useEffect(() => {
     dispatch(fetchMeals(selectedCategory));
@@ -26,6 +34,7 @@ const Home = () => {
           type="text"
           className="bg-transparent text-lg p-1 font-semibold ring-0 border-0 outline-none w-full placeholder:opacity-45"
           placeholder="Search your food"
+          onChange={(e) => setSearch(e.target.value)}
         />
         <IoSearch className="text-2xl bg-transparent absolute right-3 text-textDark opacity-85" />
       </div>

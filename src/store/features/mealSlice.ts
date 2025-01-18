@@ -30,6 +30,18 @@ const MealSlice = createSlice({
         setMeals(state, action: PayloadAction<{ meal: Meal[] }>) {
             state.meals = action.payload.meal
         },
+        searchMeal(state, action: PayloadAction<{ keyword: string }>) {
+            const { keyword } = action.payload
+
+            state.isLoading = true
+
+            state.meals.filter((meal) =>
+                meal.name.toLowerCase() === keyword.toLowerCase() ||
+                meal.dsc.toLowerCase() === keyword.toLowerCase()
+            )
+
+            state.isLoading = false
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -49,4 +61,4 @@ const MealSlice = createSlice({
 })
 
 export default MealSlice.reducer
-export const { setMeals } = MealSlice.actions
+export const { setMeals, searchMeal } = MealSlice.actions
