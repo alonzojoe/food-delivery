@@ -3,12 +3,15 @@ import ImgPlaceholder from "@/assets/images/no-prev.png";
 import { TiStarFullOutline } from "react-icons/ti";
 import { type Meal } from "@/store/features/mealSlice";
 import { useNavigate } from "react-router-dom";
-
+import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa";
 type MealItemProps = {
   meal: Meal;
+  showHeart?: boolean;
+  favorite?: boolean;
 };
 
-const MealItem = ({ meal }: MealItemProps) => {
+const MealItem = ({ meal, showHeart = false, favorite }: MealItemProps) => {
   const navigate = useNavigate();
 
   const selectMeal = (meal: Meal) => {
@@ -29,6 +32,15 @@ const MealItem = ({ meal }: MealItemProps) => {
               (e.target as HTMLImageElement).src = ImgPlaceholder;
             }}
           />
+          {showHeart && (
+            <button className="bg-white absolute top-2 right-2 shadow-lg p-2 rounded-lg">
+              {favorite ? (
+                <FaHeart className="text-xl text-primary" />
+              ) : (
+                <FaRegHeart className="text-xl" />
+              )}
+            </button>
+          )}
         </div>
         <div className="p-4 flex justify-between">
           <div className="flex flex-col justify-between">

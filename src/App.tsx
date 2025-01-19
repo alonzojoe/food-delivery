@@ -4,6 +4,7 @@ import AppLayout from "@/layouts/AppLayout";
 import Home from "@/pages/Home/Home";
 import Meal from "@/pages/Meal/Meal";
 import Cart from "@/pages/Cart/Cart";
+import Favorites from "@/pages/Favorites/Favorites";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/home" element={<AppLayout />}>
           <Route index element={<Home />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="favorites" element={<Favorites />} />
         </Route>
         <Route path="/meal/:id" element={<Meal />}></Route>
         <Route path="*" element={<Navigate to="/home" />} />

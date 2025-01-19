@@ -51,7 +51,7 @@ const Home = () => {
       </>
       <div>
         <h3 className="my-5 text-xl font-semibold">Popular</h3>
-        <div className="grid cols-1 md:grid-cols-2 gap-8">
+        <div className="grid cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
           {isLoading ? (
             <>
               <SekeletonMeal />
