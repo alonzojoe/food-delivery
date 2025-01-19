@@ -2,11 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import MealSlice from './features/mealSlice';
 import CartSlice from './features/cartSlice';
+import FavoriteSlice from './features/favoriteSlice';
+
 
 export const store = configureStore({
     reducer: {
         meal: MealSlice,
-        cart: CartSlice
+        cart: CartSlice,
+        favorites: FavoriteSlice
     }
 })
 
