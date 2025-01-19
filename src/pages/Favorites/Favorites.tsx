@@ -37,7 +37,12 @@ const Favorites = () => {
       <div className="mt-5">
         <div className="grid cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
           {favorites.map((favorite) => (
-            <MealItem meal={favorite} showHeart={true} favorite={true} />
+            <MealItem
+              meal={favorite}
+              showHeart={true}
+              favorite={true}
+              key={favorite.id}
+            />
           ))}
         </div>
       </div>
