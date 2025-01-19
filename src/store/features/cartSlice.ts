@@ -8,7 +8,7 @@ export interface CartItem extends Meal {
 }
 
 export interface CartState {
-    cart: CartItem[] | [],
+    cart: CartItem[],
     totalAmount: number,
 }
 

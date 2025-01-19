@@ -9,9 +9,15 @@ type MealItemProps = {
   meal: Meal;
   showHeart?: boolean;
   favorite?: boolean;
+  onAddRemove?: (selectedMeal: Meal) => void;
 };
 
-const MealItem = ({ meal, showHeart = false, favorite }: MealItemProps) => {
+const MealItem = ({
+  meal,
+  showHeart = false,
+  favorite,
+  onAddRemove = () => {},
+}: MealItemProps) => {
   const navigate = useNavigate();
 
   const selectMeal = (meal: Meal) => {
@@ -32,8 +38,11 @@ const MealItem = ({ meal, showHeart = false, favorite }: MealItemProps) => {
               (e.target as HTMLImageElement).src = ImgPlaceholder;
             }}
           />
-          {showHeart && (
-            <button className="bg-white absolute top-2 right-2 shadow-lg p-2 rounded-lg">
+          {meal && showHeart && (
+            <button
+              onClick={() => onAddRemove(meal!)}
+              className="bg-white absolute top-2 right-2 shadow-lg p-2 rounded-lg"
+            >
               {favorite ? (
                 <FaHeart className="text-xl text-primary" />
               ) : (

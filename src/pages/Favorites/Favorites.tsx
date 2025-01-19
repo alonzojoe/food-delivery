@@ -1,4 +1,8 @@
+import { useEffect } from "react";
 import MealItem from "@/pages/Home/components/MealItem";
+import { useAppSelector, useAppDispatch } from "@/store/store";
+import { setFavorites, addOrRemoveItem } from "@/store/features/favoriteSlice";
+import { type Meal } from "@/store/features/mealSlice";
 
 const favorites = [
   {
@@ -31,17 +35,29 @@ const favorites = [
 ];
 
 const Favorites = () => {
+  const dispatch = useAppDispatch();
+  const { meals } = useAppSelector((state) => state.favorites);
+
+  useEffect(() => {
+    dispatch(setFavorites({ meals: favorites }));
+  }, [dispatch]);
+
+  const addRemove = (selectedMeal: Meal) => {
+    dispatch(addOrRemoveItem({ meal: selectedMeal }));
+  };
+
   return (
     <div className="container my-5  h-dvh">
       <h2 className="text-primary text-2xl font-bold">Favorites</h2>
       <div className="mt-5">
         <div className="grid cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
-          {favorites.map((favorite) => (
+          {meals.map((favorite) => (
             <MealItem
               meal={favorite}
               showHeart={true}
               favorite={true}
               key={favorite.id}
+              onAddRemove={addRemove}
             />
           ))}
         </div>

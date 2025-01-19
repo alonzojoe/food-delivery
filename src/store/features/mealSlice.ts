@@ -13,8 +13,8 @@ export interface Meal {
 
 export interface MealState {
     isLoading: boolean;
-    meals: Meal[] | [];
-    allmeals: Meal[] | [];
+    meals: Meal[];
+    allmeals: Meal[];
     error: string | null;
 }
 
