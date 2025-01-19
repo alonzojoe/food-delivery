@@ -47,7 +47,7 @@ const Favorites = () => {
   };
 
   return (
-    <div className="container my-5  h-dvh">
+    <div className="container !px-0 my-5  h-dvh">
       <h2 className="text-primary text-2xl font-bold">Favorites</h2>
       <div className="mt-5">
         <div className="grid cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
