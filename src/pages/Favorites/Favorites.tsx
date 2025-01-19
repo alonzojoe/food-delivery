@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import MealItem from "@/pages/Home/components/MealItem";
+import FavoriteItem from "@/pages/Favorites/components/FavoriteItem";
 import { useAppSelector, useAppDispatch } from "@/store/store";
 import { setFavorites, addOrRemoveItem } from "@/store/features/favoriteSlice";
 import { type Meal } from "@/store/features/mealSlice";
@@ -51,15 +51,23 @@ const Favorites = () => {
       <h2 className="text-primary text-2xl font-bold">Favorites</h2>
       <div className="mt-5">
         <div className="grid cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
-          {meals.map((favorite) => (
-            <MealItem
-              meal={favorite}
-              showHeart={true}
-              favorite={true}
-              key={favorite.id}
-              onAddRemove={addRemove}
-            />
-          ))}
+          {!meals.length ? (
+            <h3 className="text-textDark text-center text-xl font-medium !leading-snug">
+              There are no current favorite meals. Add some?
+            </h3>
+          ) : (
+            <>
+              {meals.map((favorite) => (
+                <FavoriteItem
+                  meal={favorite}
+                  showHeart={true}
+                  favorite={true}
+                  key={favorite.id}
+                  onAddRemove={addRemove}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>
