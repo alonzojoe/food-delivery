@@ -39,6 +39,7 @@ const Favorites = () => {
   const { meals } = useAppSelector((state) => state.favorites);
 
   useEffect(() => {
+    localStorage.setItem("FAVORITES", JSON.stringify(favorites));
     dispatch(setFavorites({ meals: favorites }));
   }, [dispatch]);
 

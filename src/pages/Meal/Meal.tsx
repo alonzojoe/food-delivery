@@ -12,6 +12,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { type Meal } from "@/store/features/mealSlice";
 import { type CartItem } from "@/store/features/cartSlice";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { addOrRemoveItem, setFavorites } from "@/store/features/favoriteSlice";
 
 // const selected = {
 //   id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
@@ -27,8 +28,13 @@ const Meal = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [choosenMeal] = useLocalStorage<Meal | null>("CHOOSEN_MEAL", null);
+  const [favoriteMeals, setFavoriteMeals] = useLocalStorage<Meal[] | []>(
+    "FAVORITES",
+    []
+  );
 
   const { cart } = useAppSelector((state) => state.cart);
+  const { meals } = useAppSelector((state) => state.favorites);
 
   const [count, setCount] = useState(1);
 
@@ -38,16 +44,10 @@ const Meal = () => {
       const parsedCart: CartItem[] = JSON.parse(storedCart);
       dispatch(setCart({ meals: parsedCart }));
     }
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (isMounted.current) {
-  //     console.log("effect setlocalStorage runs");
-  //     localStorage.setItem("CART", JSON.stringify(cart));
-  //   }
-
-  //   console.log("current cart items", cart);
-  // }, [cart]);
+    if (favoriteMeals) {
+      dispatch(setFavorites({ meals: favoriteMeals }));
+    }
+  }, [dispatch, favoriteMeals]);
 
   const addItem = (selectedItem: CartItem) => {
     const updatedCart: CartItem[] = [...cart];
@@ -55,6 +55,28 @@ const Meal = () => {
     localStorage.setItem("CART", JSON.stringify(updatedCart));
     dispatch(addToCart({ item: selectedItem }));
     console.log("updated cart", cart);
+  };
+
+  const handleAddRemoveItem = (item: Meal) => {
+    console.log(favoriteMeals);
+    if (favoriteMeals && choosenMeal) {
+      const currentFavorites: Meal[] = favoriteMeals;
+
+      const existed = currentFavorites.some(
+        (fav) => fav.id === choosenMeal?.id
+      );
+
+      if (existed) {
+        const filteredFavorite = currentFavorites.filter(
+          (fav) => fav.id !== choosenMeal.id
+        );
+        setFavoriteMeals(filteredFavorite);
+      } else {
+        setFavoriteMeals([...currentFavorites, item]);
+      }
+    }
+
+    dispatch(addOrRemoveItem({ meal: item }));
   };
 
   if (!choosenMeal) return <Navigate to={"/home"} />;
@@ -76,7 +98,10 @@ const Meal = () => {
         >
           <TbArrowNarrowLeft className="text-xl" />
         </button>
-        <button className="bg-white absolute top-5 right-5 shadow-lg p-4 rounded-lg">
+        <button
+          onClick={() => handleAddRemoveItem(choosenMeal)}
+          className="bg-white absolute top-5 right-5 shadow-lg p-4 rounded-lg"
+        >
           <FaRegHeart className="text-xl" />
         </button>
         <div className="bg-white flex items-center gap-5 rounded-2xl px-5 py-3  absolute -bottom-5 left-1/2 -translate-x-1/2 shadow-xl">
