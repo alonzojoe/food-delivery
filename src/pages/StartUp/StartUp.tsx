@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { useAppDispatch } from "@/store/store";
+import { setUser } from "@/store/features/authSlice";
+
 type GoogleAuthUser = {
   sub: string;
   name: string;
@@ -27,13 +30,15 @@ export type AuthUser = {
 
 const StartUp = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleSuccess = (response: CredentialResponse) => {
     console.log("response", response);
     if (response.credential) {
-      const user: GoogleAuthUser = jwtDecode(response.credential);
+      const user: AuthUser = jwtDecode(response.credential);
 
       if (user) {
         localStorage.setItem("AUTH_USER", JSON.stringify(user));
+        dispatch(setUser({ user: user }));
       }
 
       navigate("/home");
