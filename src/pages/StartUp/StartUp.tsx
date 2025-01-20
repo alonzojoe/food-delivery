@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 type GoogleAuthUser = {
   sub: string;
@@ -8,16 +8,37 @@ type GoogleAuthUser = {
   picture: string;
 };
 
+export type GoogleUser = {
+  iss: string;
+  aud: string;
+  azp: string;
+  email: string;
+  email_verified: boolean;
+  exp: number;
+  family_name: string;
+  given_name: string;
+  iat: number;
+  jti: string;
+  name: string;
+  nbf: number;
+  picture: string;
+  sub: string;
+};
+
 const StartUp = () => {
   const navigate = useNavigate();
-  const handleSuccess = (response: any) => {
-    const user: GoogleAuthUser = jwtDecode(response.credential);
+  const handleSuccess = (response: CredentialResponse) => {
+    console.log("response", response);
+    if (response.credential) {
+      const user: GoogleAuthUser = jwtDecode(response.credential);
 
-    if (user) {
-      localStorage.setItem("AUTH_USER", JSON.stringify(user));
+      if (user) {
+        localStorage.setItem("AUTH_USER", JSON.stringify(user));
+      }
+
+      navigate("/home");
+      return user;
     }
-
-    navigate("/home");
   };
 
   const handleError = () => {
