@@ -5,19 +5,19 @@ import { type Meal } from "@/store/features/mealSlice";
 import { useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
-type MealItemProps = {
+type FavoriteItemProps = {
   meal: Meal;
   showHeart?: boolean;
   favorite?: boolean;
   onAddRemove?: (selectedMeal: Meal) => void;
 };
 
-const MealItem = ({
+const FavoriteItem = ({
   meal,
   showHeart = false,
   favorite,
   onAddRemove = () => {},
-}: MealItemProps) => {
+}: FavoriteItemProps) => {
   const navigate = useNavigate();
 
   const selectMeal = (meal: Meal) => {
@@ -27,7 +27,7 @@ const MealItem = ({
   };
 
   return (
-    <div className="cursor-pointer" onClick={() => selectMeal(meal)}>
+    <div className="cursor-pointer">
       <Card key={meal.id}>
         <div className="relative">
           <img
@@ -53,7 +53,10 @@ const MealItem = ({
         </div>
         <div className="p-4 flex justify-between">
           <div className="flex flex-col justify-between">
-            <div className="text-lg font-semibold text-gray-800">
+            <div
+              className="text-lg font-semibold text-gray-800"
+              onClick={() => selectMeal(meal)}
+            >
               {meal.name}
             </div>
 
@@ -75,4 +78,4 @@ const MealItem = ({
   );
 };
 
-export default MealItem;
+export default FavoriteItem;

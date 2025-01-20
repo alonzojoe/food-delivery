@@ -5,7 +5,6 @@ import { type CartItem } from "@/store/features/cartSlice";
 import CartItems from "@/pages/Cart/components/CartItems";
 import CartComputation from "@/pages/Cart/components/CartComputation";
 
-
 const Cart = () => {
   const dispatch = useAppDispatch();
 
@@ -20,7 +19,7 @@ const Cart = () => {
   }, [dispatch]);
 
   return (
-    <div className="container my-5  h-dvh">
+    <div className="container !px-0 my-5  h-dvh">
       <h2 className="text-2xl mb-2 font-semibold text-primary border-primary border-b-1 decoration-dashed">
         Items in Your Cart:
       </h2>
