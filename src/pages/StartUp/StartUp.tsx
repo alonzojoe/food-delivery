@@ -8,7 +8,7 @@ type GoogleAuthUser = {
   picture: string;
 };
 
-export type GoogleUser = {
+export type AuthUser = {
   iss: string;
   aud: string;
   azp: string;
