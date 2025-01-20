@@ -3,7 +3,7 @@ import FavoriteItem from "@/pages/Favorites/components/FavoriteItem";
 import { useAppSelector, useAppDispatch } from "@/store/store";
 import { setFavorites, addOrRemoveItem } from "@/store/features/favoriteSlice";
 import { type Meal } from "@/store/features/mealSlice";
-
+import useLocalStorage from "@/hooks/useLocalStorage";
 const favorites = [
   {
     id: "23699-choose-your-own-thin-crust-pizza-4-pack",
@@ -37,13 +37,33 @@ const favorites = [
 const Favorites = () => {
   const dispatch = useAppDispatch();
   const { meals } = useAppSelector((state) => state.favorites);
+  const [favoriteItems, setFavoriteItems] = useLocalStorage<Meal[] | []>(
+    "FAVORITES",
+    []
+  );
 
   useEffect(() => {
-    localStorage.setItem("FAVORITES", JSON.stringify(favorites));
-    dispatch(setFavorites({ meals: favorites }));
-  }, [dispatch]);
+    dispatch(setFavorites({ meals: favoriteItems }));
+  }, [dispatch, favoriteItems]);
 
   const addRemove = (selectedMeal: Meal) => {
+    const currentFavorites: Meal[] = [...favoriteItems];
+
+    if (currentFavorites && selectedMeal) {
+      const existed = currentFavorites.some(
+        (fav) => fav.id === selectedMeal.id
+      );
+
+      if (existed) {
+        const filteredMeals = currentFavorites.filter(
+          (fav) => fav.id !== selectedMeal.id
+        );
+        setFavoriteItems(filteredMeals);
+      } else {
+        setFavoriteItems([...currentFavorites, selectedMeal]);
+      }
+    }
+
     dispatch(addOrRemoveItem({ meal: selectedMeal }));
   };
 
