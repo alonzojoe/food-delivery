@@ -13,6 +13,7 @@ import { type Meal } from "@/store/features/mealSlice";
 import { type CartItem } from "@/store/features/cartSlice";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { addOrRemoveItem, setFavorites } from "@/store/features/favoriteSlice";
+import { FaHeart } from "react-icons/fa";
 
 // const selected = {
 //   id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
@@ -34,7 +35,7 @@ const Meal = () => {
   );
 
   const { cart } = useAppSelector((state) => state.cart);
-  const { meals } = useAppSelector((state) => state.favorites);
+  // const { meals } = useAppSelector((state) => state.favorites);
 
   const [count, setCount] = useState(1);
 
@@ -71,8 +72,10 @@ const Meal = () => {
           (fav) => fav.id !== choosenMeal.id
         );
         setFavoriteMeals(filteredFavorite);
+        console.log("filteredMeals", filteredFavorite);
       } else {
         setFavoriteMeals([...currentFavorites, item]);
+        console.log("newFavoriteMeals", [...currentFavorites, item]);
       }
     }
 
@@ -80,6 +83,8 @@ const Meal = () => {
   };
 
   if (!choosenMeal) return <Navigate to={"/home"} />;
+
+  const isFavorite = favoriteMeals.some((fav) => fav.id === choosenMeal.id);
 
   return (
     <div className="h-dvh w-full relative">
@@ -102,7 +107,11 @@ const Meal = () => {
           onClick={() => handleAddRemoveItem(choosenMeal)}
           className="bg-white absolute top-5 right-5 shadow-lg p-4 rounded-lg"
         >
-          <FaRegHeart className="text-xl" />
+          {isFavorite ? (
+            <FaHeart className="text-xl text-primary" />
+          ) : (
+            <FaRegHeart className="text-xl" />
+          )}
         </button>
         <div className="bg-white flex items-center gap-5 rounded-2xl px-5 py-3  absolute -bottom-5 left-1/2 -translate-x-1/2 shadow-xl">
           <button
