@@ -7,7 +7,7 @@ import { capitalizedFirstLetter } from "@/libs/utils";
 
 const Header = () => {
   const { user } = useAppSelector((state) => state.auth);
-
+  const { cart } = useAppSelector((state) => state.cart);
   return (
     <div className="flex items-center justify-between w-full">
       <div className="bg-secondary p-3 rounded-lg flex-shrink-0">
@@ -24,8 +24,11 @@ const Header = () => {
           <FaCaretDown className="text-xl text-primary" />
         </span>
       </div>
-      <div className="bg-secondary p-3 rounded-lg flex-shrink-0">
+      <div className="bg-secondary p-3 rounded-lg flex-shrink-0 relative">
         <IoMdCart className="text-xl text-textDark" />
+        <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-primary border-2 border-secondary rounded-full -top-2 -end-2">
+          {cart.length}
+        </div>
       </div>
     </div>
   );

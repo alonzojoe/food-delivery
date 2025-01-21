@@ -10,13 +10,13 @@ const Cart = () => {
 
   const { totalAmount } = useAppSelector((state) => state.cart);
 
-  useEffect(() => {
-    const storedCart = localStorage.getItem("CART");
-    if (storedCart) {
-      const parsedCart: CartItem[] = JSON.parse(storedCart);
-      dispatch(setCart({ meals: parsedCart }));
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const storedCart = localStorage.getItem("CART");
+  //   if (storedCart) {
+  //     const parsedCart: CartItem[] = JSON.parse(storedCart);
+  //     dispatch(setCart({ meals: parsedCart }));
+  //   }
+  // }, [dispatch]);
 
   return (
     <div className="container !px-0 my-5  h-dvh">
