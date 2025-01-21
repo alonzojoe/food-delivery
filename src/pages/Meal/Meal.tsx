@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart, setCart } from "@/store/features/cartSlice";
 import { useState } from "react";
+import { IoMdCart } from "react-icons/io";
 import { LuAlarmClock } from "react-icons/lu";
 import { TiStarFullOutline } from "react-icons/ti";
 import { TiPlus, TiMinus } from "react-icons/ti";
@@ -134,7 +135,7 @@ const Meal = () => {
           </button>
         </div>
       </div>
-      <div className="mt-16 container h-full">
+      <div className="mt-16 container">
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-3xl">{choosenMeal.name}</h2>
           <div>
@@ -171,7 +172,7 @@ const Meal = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-5 w-full px-5">
+      {/* <div className="fixed bottom-5 w-full px-5">
         <button
           onClick={() =>
             addItem({
@@ -184,6 +185,26 @@ const Meal = () => {
         >
           Add To Cart (${(choosenMeal.price * count).toFixed(2)})
         </button>
+      </div> */}
+      <div className="bg-white w-full border-t border-slate-500 p-5 fixed bottom-0">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold">
+            <small className="text-primary">$</small>{" "}
+            {(choosenMeal.price * count).toFixed(2)}
+          </h2>
+          <button
+            onClick={() =>
+              addItem({
+                ...choosenMeal,
+                quantity: count,
+                amount: choosenMeal.price,
+              })
+            }
+            className="bg-primary p-3 text-lg font-semibold text-white rounded-xl flex items-center gap-2"
+          >
+            <IoMdCart className="inline-block" /> Add To Cart
+          </button>
+        </div>
       </div>
     </div>
   );
