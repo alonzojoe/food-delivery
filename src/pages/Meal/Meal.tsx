@@ -15,6 +15,9 @@ import { type CartItem } from "@/store/features/cartSlice";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { addOrRemoveItem, setFavorites } from "@/store/features/favoriteSlice";
 import { FaHeart } from "react-icons/fa";
+import Card from "@/components/UI/Card";
+import ImgPlaceholder from "@/assets/images/no-prev.png";
+import { FaEye } from "react-icons/fa";
 
 // const selected = {
 //   id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
@@ -25,6 +28,72 @@ import { FaHeart } from "react-icons/fa";
 //   rate: 5,
 //   country: "Chicago, IL",
 // };
+
+const recommended = [
+  {
+    id: "the-gramercy-tavern-burger-4-pack",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/137148/Gramercy-Tavern-Burger-and-Kielbasa-Kit-6.4.21-72ppi-1x1-15.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Gramercy Tavern",
+    dsc: "The Gramercy Tavern Burger - 4 Pack",
+    price: 99,
+    rate: 5,
+    country: "New York, NY",
+  },
+  {
+    id: "shake-shack-shackburger-8-pack",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/134862/shake-shack-shackburger-8-pack.973a5e26836ea86d7e86a327becea2b0.png?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Shake Shack",
+    dsc: "Shake Shack ShackBurger® – 8 Pack",
+    price: 49,
+    rate: 5,
+    country: "New York, NY",
+  },
+  {
+    id: "gotts-cheeseburger-kit-for-4",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/132933/gotts-complete-cheeseburger-kit-for-4.7bdc74104b193427b3fe6eae39e05b5e.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Gott's Roadside",
+    dsc: "Gott's Complete Cheeseburger Kit for 4",
+    price: 99,
+    rate: 5,
+    country: "St. Helena, CA",
+  },
+  {
+    id: "le-big-matt-kit-for-6",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/131436/le-big-matt-kit-for-6.1ddae6e382bb3218eeb0fd5247de115a.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Emmy Squared",
+    dsc: "Le Big Matt Burger Kit for 6",
+    price: 99,
+    rate: 5,
+    country: "Brooklyn, NY",
+  },
+  {
+    id: "shake-shack-shackburger-16-pack",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/134022/shake-shack-shackburger-16-pack.316f8b09144db65931ea29e34869287a.png?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Shake Shack",
+    dsc: "Shake Shack Shackburger® – 16 Pack",
+    price: 89,
+    rate: 4,
+    country: "New York, NY",
+  },
+  {
+    id: "wagyu-burger-patties-12-pack",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/107019/wagyu-burger-patties-12-pack.6116f4cd648dee20651f99e21e7d758b.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Westholme Wagyu",
+    dsc: "Wagyu Burger Patties - 12 Pack",
+    price: 129,
+    rate: 5,
+    country: "Queensland, Australia",
+  },
+  {
+    id: "21-usda-prime-burgers-pack-of-18-8oz-each",
+    img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/133009/usda-prime-burgers-pack-of-18-8oz-each.274c67f15aa1c0b210dbf51801706670.png?ixlib=react-9.0.2&auto=format&ar=1%3A1",
+    name: "Peter Luger Steak House",
+    dsc: "USDA Prime Burgers - Pack of 18 (8oz each)",
+    price: 175.95,
+    rate: 4,
+    country: "Brooklyn, NY",
+  },
+];
 
 const Meal = () => {
   const navigate = useNavigate();
@@ -135,41 +204,87 @@ const Meal = () => {
           </button>
         </div>
       </div>
-      <div className="mt-16 container">
-        <div className="flex justify-between items-center">
-          <h2 className="font-bold text-3xl">{choosenMeal.name}</h2>
+      <div className="mt-11 container space-y-3">
+        <div className="flex justify-between items-center text-textDark ">
+          <h3 className="font-bold text-xl">{choosenMeal.name}</h3>
           <div>
-            <span className="text-xl text-primary font-semibold">$</span>
-            <span className="text-2xl text-textDark font-semibold">
+            <small className="text-primary text-lg font-semibold">$ </small>
+            <span className="text-xl font-semibold">
               {choosenMeal.price.toFixed(2)}
             </span>
           </div>
         </div>
-
-        <div className="my-8 flex justify-between items-center px-3">
+        {/* delivery details */}
+        <div className="flex justify-between items-center px-3">
           <div className="flex items-center gap-2">
-            <FaMotorcycle className="text-warning text-3xl" />
-            <span className="font-semibold text-lg">Free</span>
+            <FaMotorcycle className="text-warning text-2xl" />
+            <span className="font-semibold text-base text-textDark">Free</span>
           </div>
           <div className="flex items-center gap-2">
-            <LuAlarmClock className="text-danger text-3xl" />
-            <span className="font-semibold text-lg">15-30min</span>
+            <LuAlarmClock className="text-danger text-2xl" />
+            <span className="font-semibold text-base text-textDark">
+              15-30min
+            </span>
           </div>
           <div className="flex items-center gap-2">
-            <TiStarFullOutline className="text-primary text-3xl" />
-            <span className="font-semibold text-lg">
+            <TiStarFullOutline className="text-primary text-2xl" />
+            <span className="font-semibold text-base text-textDark">
               {choosenMeal.rate.toFixed(1)}
             </span>
           </div>
         </div>
-        <div className="my-5">
-          <h2 className="text-textDarky font-semibold text-xl">About</h2>
-          <p className="text-textMuted text-lg">{choosenMeal.dsc}</p>
+        {/* delivery details */}
+        {/* about */}
+        <div>
+          <h4 className="text-textDarky font-semibold text-lg">About</h4>
+          <p className="text-textGray text-md">{choosenMeal.dsc}</p>
         </div>
-        <div className="my-5">
-          <h2 className="text-textDarky font-semibold text-xl">Popular In</h2>
-          <p className="text-textMuted text-lg">{choosenMeal.country}</p>
+        {/* about */}
+        {/* popular */}
+        <div>
+          <h3 className="text-textDarky font-semibold text-lg">Popular In</h3>
+          <p className="text-textGray text-md">{choosenMeal.country}</p>
         </div>
+        {/* popular */}
+        {/* recommended */}
+        <div className="pb-20">
+          <h2 className="text-textDarky font-semibold text-lg">Recommended</h2>
+          <div className="overflow-x-auto">
+            <div className="flex space-x-4 whitespace-nowrap py-4">
+              {recommended.map((meal) => (
+                <Card key={meal.id} width="w-[150px]" shrink="shrink-0">
+                  <div className="relative">
+                    <img
+                      src={meal.img}
+                      className="w-full h-20 object-cover object-center rounded-t-lg"
+                      alt={meal.name}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = ImgPlaceholder;
+                      }}
+                    />
+                  </div>
+                  <div className="p-3">
+                    <div className="text-sm font-semibold text-gray-800 text-wrap">
+                      {meal.name}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between">
+                      <span>
+                        <h4 className="text-md font-semibold">
+                          <small className="text-primary">$ </small>{" "}
+                          {meal.price.toFixed(2)}
+                        </h4>
+                      </span>
+                      <span>
+                        <FaEye className="text-primary text-xl" />
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* recommended */}
       </div>
 
       {/* <div className="fixed bottom-5 w-full px-5">
@@ -186,7 +301,7 @@ const Meal = () => {
           Add To Cart (${(choosenMeal.price * count).toFixed(2)})
         </button>
       </div> */}
-      <div className="bg-white w-full border-t border-slate-500 p-5 fixed bottom-0">
+      <div className="bg-white w-full border-t border-text-muted p-5 fixed bottom-0">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold">
             <small className="text-primary">$</small>{" "}

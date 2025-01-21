@@ -16,6 +16,7 @@ export default {
         textDarky: "#2B2934",
         danger: "#BD2D3C",
         warning: "#E0B234",
+        textGray: "#A9A9AE",
       },
       container: {
         center: true,
