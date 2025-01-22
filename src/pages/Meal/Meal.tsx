@@ -15,17 +15,14 @@ import { type CartItem } from "@/store/features/cartSlice";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { addOrRemoveItem, setFavorites } from "@/store/features/favoriteSlice";
 import { FaHeart } from "react-icons/fa";
-import Card from "@/components/UI/Card";
-import ImgPlaceholder from "@/assets/images/no-prev.png";
-import { FaEye } from "react-icons/fa";
 import { fetchMeals } from "@/store/thunks/mealThunks";
-import { pickRecommended } from "@/libs/utils";
+import Recommended from "@/pages/Meal/components/Recommended";
 
 const Meal = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart);
-  const { meals } = useAppSelector((state) => state.meal);
+  const { meals, isLoading } = useAppSelector((state) => state.meal);
   const [choosenMeal] = useLocalStorage<Meal | null>("CHOOSEN_MEAL", null);
   const [favoriteMeals, setFavoriteMeals] = useLocalStorage<Meal[]>(
     "FAVORITES",
@@ -201,44 +198,7 @@ const Meal = () => {
         {/* recommended */}
         <div className="pb-20">
           <h2 className="text-textDarky font-semibold text-lg">Recommended</h2>
-          <div className="overflow-x-auto">
-            <div className="flex space-x-4 whitespace-nowrap py-4">
-              {meals.length && (
-                <>
-                  {pickRecommended(meals, 10, choosenMeal).map((meal) => (
-                    <Card key={meal.id} width="w-[150px]" shrink="shrink-0">
-                      <div className="relative">
-                        <img
-                          src={meal.img}
-                          className="w-full h-20 object-cover object-center rounded-t-lg"
-                          alt={meal.name}
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = ImgPlaceholder;
-                          }}
-                        />
-                      </div>
-                      <div className="p-3">
-                        <div className="text-sm font-semibold text-gray-800 text-wrap">
-                          {meal.name}
-                        </div>
-                        <div className="mt-2 flex items-center justify-between">
-                          <span>
-                            <h4 className="text-md font-semibold">
-                              <small className="text-primary">$ </small>{" "}
-                              {meal.price.toFixed(2)}
-                            </h4>
-                          </span>
-                          <span>
-                            <FaEye className="text-primary text-xl" />
-                          </span>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </>
-              )}
-            </div>
-          </div>
+          <Recommended meals={meals} isLoading={isLoading} choosenMeal={choosenMeal} />
         </div>
         {/* recommended */}
       </div>
