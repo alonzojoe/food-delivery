@@ -3,13 +3,18 @@ import MealItem from "@/pages/Home/components/MealItem";
 
 type MealsProps = {
   meals: Meal[] | [];
+  selectedCategory: string;
 };
 
-const Meals = ({ meals }: MealsProps) => {
+const Meals = ({ meals, selectedCategory }: MealsProps) => {
   return (
     <>
       {meals.map((meal) => (
-        <MealItem meal={meal} key={meal.id} />
+        <MealItem
+          selectedCategory={selectedCategory}
+          meal={meal}
+          key={meal.id}
+        />
       ))}
     </>
   );

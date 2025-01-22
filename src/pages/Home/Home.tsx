@@ -59,7 +59,7 @@ const Home = () => {
             </>
           ) : (
             <>
-              <Meals meals={meals} />
+              <Meals selectedCategory={selectedCategory} meals={meals} />
             </>
           )}
         </div>

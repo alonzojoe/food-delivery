@@ -5,12 +5,12 @@ export const capitalizedFirstLetter = (string: string): string => {
 }
 
 
-export const pickRecommended = (meals: Meal[], count: number): Meal[] => {
+export const pickRecommended = (meals: Meal[], count: number, except: Meal): Meal[] => {
     if (count > meals.length) {
         throw new Error('An error occured')
     }
 
-    const copiedMeals = [...meals]
+    const copiedMeals = meals.filter((meal) => meal.id !== except.id)
 
     for (let i = copiedMeals.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1)) as number

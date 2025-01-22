@@ -9,6 +9,7 @@ type MealItemProps = {
   meal: Meal;
   showHeart?: boolean;
   favorite?: boolean;
+  selectedCategory: string;
   onAddRemove?: (selectedMeal: Meal) => void;
 };
 
@@ -16,13 +17,14 @@ const MealItem = ({
   meal,
   showHeart = false,
   favorite,
+  selectedCategory,
   onAddRemove = () => {},
 }: MealItemProps) => {
   const navigate = useNavigate();
 
   const selectMeal = (meal: Meal) => {
     localStorage.setItem("CHOOSEN_MEAL", JSON.stringify(meal));
-
+    localStorage.setItem("RECOMMENDED_CATEGORY", selectedCategory);
     navigate(`/meal/${meal.id}`);
   };
 
