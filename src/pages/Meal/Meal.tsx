@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/store/store";
+import { store, useAppDispatch, useAppSelector } from "@/store/store";
 import { addToCart, setCart } from "@/store/features/cartSlice";
 import { useState } from "react";
 import { IoMdCart } from "react-icons/io";
@@ -18,16 +18,6 @@ import { FaHeart } from "react-icons/fa";
 import Card from "@/components/UI/Card";
 import ImgPlaceholder from "@/assets/images/no-prev.png";
 import { FaEye } from "react-icons/fa";
-
-// const selected = {
-//   id: "choose-your-own-chicago-deep-dish-pizza-4-pack",
-//   img: "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/89948/chicago-deep-dish-pizza-4-pack.49927daafa8c147fe9bb2a113e56668e.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1",
-//   name: "My Pi Pizza",
-//   dsc: "Chicago Deep Dish Pizza - 4 Pack",
-//   price: 129,
-//   rate: 5,
-//   country: "Chicago, IL",
-// };
 
 const recommended = [
   {
@@ -98,16 +88,23 @@ const recommended = [
 const Meal = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { cart } = useAppSelector((state) => state.cart);
   const [choosenMeal] = useLocalStorage<Meal | null>("CHOOSEN_MEAL", null);
-  const [favoriteMeals, setFavoriteMeals] = useLocalStorage<Meal[] | []>(
+  const [favoriteMeals, setFavoriteMeals] = useLocalStorage<Meal[]>(
     "FAVORITES",
     []
   );
+  const [storedItems, setStoredItems] = useLocalStorage<CartItem[]>("CART", []);
 
-  const { cart } = useAppSelector((state) => state.cart);
+  const [count, setCount] = useState(() => {
+    const existingItem = storedItems.find(
+      (storedItem) => storedItem.id === choosenMeal?.id
+    );
+
+    return existingItem ? existingItem.quantity : 1;
+  });
+
   // const { meals } = useAppSelector((state) => state.favorites);
-
-  const [count, setCount] = useState(1);
 
   useEffect(() => {
     const storedCart = localStorage.getItem("CART");
@@ -120,10 +117,23 @@ const Meal = () => {
     }
   }, [dispatch, favoriteMeals]);
 
+  const inCart = storedItems.some((item) => item.id === choosenMeal?.id);
+
   const addItem = (selectedItem: CartItem) => {
     const updatedCart: CartItem[] = [...cart];
-    updatedCart.push(selectedItem);
-    localStorage.setItem("CART", JSON.stringify(updatedCart));
+
+    const existingItemIdx = updatedCart.findIndex(
+      (item) => item.id === selectedItem.id
+    );
+
+    if (existingItemIdx !== -1) {
+      updatedCart[existingItemIdx] = selectedItem;
+    } else {
+      updatedCart.push(selectedItem);
+    }
+
+    // localStorage.setItem("CART", JSON.stringify(updatedCart));
+    setStoredItems(updatedCart);
     dispatch(addToCart({ item: selectedItem }));
     console.log("updated cart", cart);
   };
@@ -317,7 +327,8 @@ const Meal = () => {
             }
             className="bg-primary p-3 text-lg font-semibold text-white rounded-xl flex items-center gap-2"
           >
-            <IoMdCart className="inline-block" /> Add To Cart
+            <IoMdCart className="inline-block" /> {inCart ? "Update" : "Add To"}{" "}
+            Cart
           </button>
         </div>
       </div>
