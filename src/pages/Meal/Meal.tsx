@@ -54,7 +54,7 @@ const Meal = () => {
       dispatch(fetchMeals(storedCategory));
     }
     console.log("f");
-  }, [dispatch, favoriteMeals]);
+  }, [dispatch]);
 
   const inCart = storedItems.some((item) => item.id === choosenMeal?.id);
 
