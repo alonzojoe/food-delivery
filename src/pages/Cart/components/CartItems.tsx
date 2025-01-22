@@ -1,6 +1,5 @@
 import { useAppSelector, useAppDispatch } from "@/store/store";
 import CartItem from "@/pages/Cart/components/CartItem";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import { removeCartItem } from "@/store/features/cartSlice";
 import { type CartItem as CartItemType } from "@/store/features/cartSlice";
 

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import QuantityControl from "@/pages/Cart/components/QuantityControl";
 import { type CartItem } from "@/store/features/cartSlice";
 import { BsFillTrash3Fill } from "react-icons/bs";
@@ -8,6 +9,19 @@ type CartItemProps = {
 };
 
 const CartItem = ({ item, onRemove }: CartItemProps) => {
+  const [quantity, setQuantity] = useState(() => item.quantity);
+
+  const handleQuantity = (type: string) => {
+    setQuantity((prevQty) => {
+      if (type === "increment") {
+        return prevQty + 1;
+      } else {
+        if (prevQty === 1) return 1;
+        return prevQty - 1;
+      }
+    });
+  };
+
   return (
     <div className="border-b-2 border-slate-300 py-2">
       <div className="flex items-center justify-between">
@@ -34,7 +48,7 @@ const CartItem = ({ item, onRemove }: CartItemProps) => {
           </div>
         </div>
         <div className="flex gap-2 justify-end items-center">
-          <QuantityControl quantity={item.quantity} />
+          <QuantityControl onUpdateQty={handleQuantity} quantity={quantity} />
           <div>
             <span className="cursor-pointer" onClick={() => onRemove(item)}>
               <BsFillTrash3Fill className="text-md text-red-500" />
