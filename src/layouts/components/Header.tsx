@@ -6,12 +6,22 @@ import { useAppSelector } from "@/store/store";
 import { capitalizedFirstLetter } from "@/libs/utils";
 import { IoLogOutOutline } from "react-icons/io5";
 import useToggle from "@/hooks/useToggle";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [value, toggleValue] = useToggle(false);
 
   const { user } = useAppSelector((state) => state.auth);
   const { cart } = useAppSelector((state) => state.cart);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("AUTH_USER");
+
+    navigate("/", { replace: true });
+  };
+
   return (
     <div className="flex items-center justify-between w-full">
       <div className="bg-secondary p-3 rounded-lg flex-shrink-0">
@@ -39,7 +49,10 @@ const Header = () => {
         </span>
         {value && (
           <div className="border border-primary bg-white py-1 w-full rounded-lg absolute left-1/2 -translate-x-1/2 -bottom-9 flex justify-center items-center">
-            <button className="text-primary items-center flex gap-1 cursor-pointer font-semibold">
+            <button
+              onClick={handleLogout}
+              className="text-primary items-center flex gap-1 cursor-pointer font-semibold"
+            >
               <IoLogOutOutline className="text-xl" /> <span>Logout</span>
             </button>
           </div>
