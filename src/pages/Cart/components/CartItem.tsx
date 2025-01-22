@@ -4,9 +4,10 @@ import { BsFillTrash3Fill } from "react-icons/bs";
 
 type CartItemProps = {
   item: CartItem;
+  onRemove: (selectedMeal: CartItem) => void;
 };
 
-const CartItem = ({ item }: CartItemProps) => {
+const CartItem = ({ item, onRemove }: CartItemProps) => {
   return (
     <div className="border-b-2 border-slate-300 py-2">
       <div className="flex items-center justify-between">
@@ -35,7 +36,7 @@ const CartItem = ({ item }: CartItemProps) => {
         <div className="flex gap-2 justify-end items-center">
           <QuantityControl quantity={item.quantity} />
           <div>
-            <span className="cursor-pointer">
+            <span className="cursor-pointer" onClick={() => onRemove(item)}>
               <BsFillTrash3Fill className="text-md text-red-500" />
             </span>
           </div>
