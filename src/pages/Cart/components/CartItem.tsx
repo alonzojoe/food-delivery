@@ -16,7 +16,7 @@ const CartItem = ({ item, onRemove }: CartItemProps) => {
       if (type === "increment") {
         return prevQty + 1;
       } else {
-        if (prevQty === 1) return 1;
+        if (prevQty === 1) onRemove(item);
         return prevQty - 1;
       }
     });
