@@ -6,14 +6,16 @@ import { BsFillTrash3Fill } from "react-icons/bs";
 type CartItemProps = {
   item: CartItem;
   onRemove: (selectedMeal: CartItem) => void;
+  onUpdateQty: (selectedMeal: CartItem, updatedQty: number) => void;
 };
 
-const CartItem = ({ item, onRemove }: CartItemProps) => {
+const CartItem = ({ item, onRemove, onUpdateQty }: CartItemProps) => {
   const [quantity, setQuantity] = useState(() => item.quantity);
 
   const handleQuantity = (type: string) => {
     setQuantity((prevQty) => {
       if (type === "increment") {
+        onUpdateQty(item, prevQty + 1);
         return prevQty + 1;
       } else {
         if (prevQty === 1) onRemove(item);

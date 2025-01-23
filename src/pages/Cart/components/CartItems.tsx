@@ -2,6 +2,7 @@ import { useAppSelector, useAppDispatch } from "@/store/store";
 import CartItem from "@/pages/Cart/components/CartItem";
 import { removeCartItem } from "@/store/features/cartSlice";
 import { type CartItem as CartItemType } from "@/store/features/cartSlice";
+import { updateCartItem } from "@/store/features/cartSlice";
 
 const CartItems = () => {
   const dispatch = useAppDispatch();
@@ -21,10 +22,26 @@ const CartItems = () => {
     dispatch(removeCartItem({ id: selectedMeal.id }));
   };
 
+  const handleUpdateCartItem = (
+    selectedMeal: CartItemType,
+    updatedQty: number
+  ) => {
+    console.log("onUpdateCartItem");
+    console.log("selectedMeal", selectedMeal);
+    console.log("updatedQty", updatedQty);
+
+    dispatch(updateCartItem({ item: selectedMeal, updatedQty }));
+  };
+
   return (
     <>
       {cart.map((item) => (
-        <CartItem onRemove={handleRemove} item={item} key={item.id} />
+        <CartItem
+          onRemove={handleRemove}
+          onUpdateQty={handleUpdateCartItem}
+          item={item}
+          key={item.id}
+        />
       ))}
     </>
   );
