@@ -30,6 +30,14 @@ const CartItems = () => {
     console.log("selectedMeal", selectedMeal);
     console.log("updatedQty", updatedQty);
 
+    const updatedCart = cart.map((cartItem) => {
+      if (cartItem.id === selectedMeal.id) {
+        return { ...cartItem, quantity: updatedQty };
+      }
+      return cartItem;
+    });
+
+    localStorage.setItem("CART", JSON.stringify(updatedCart));
     dispatch(updateCartItem({ item: selectedMeal, updatedQty }));
   };
 
