@@ -19,6 +19,7 @@ const CartItem = ({ item, onRemove, onUpdateQty }: CartItemProps) => {
         return prevQty + 1;
       } else {
         if (prevQty === 1) onRemove(item);
+        onUpdateQty(item, prevQty - 1);
         return prevQty - 1;
       }
     });
