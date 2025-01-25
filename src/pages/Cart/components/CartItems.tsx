@@ -3,11 +3,11 @@ import CartItem from "@/pages/Cart/components/CartItem";
 import { removeCartItem } from "@/store/features/cartSlice";
 import { type CartItem as CartItemType } from "@/store/features/cartSlice";
 import { updateCartItem } from "@/store/features/cartSlice";
-
+import { useState } from "react";
 const CartItems = () => {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart);
-
+  const [count, setCount] = useState(1);
   const handleRemove = (selectedMeal: CartItemType) => {
     const currentCart = [...cart];
     const itemIndex = currentCart.findIndex(
@@ -43,6 +43,7 @@ const CartItems = () => {
 
   return (
     <>
+      <button onClick={() => setCount((prev) => prev + 1)}>test {count}</button>
       {cart.map((item) => (
         <CartItem
           onRemove={handleRemove}
