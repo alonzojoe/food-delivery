@@ -1,9 +1,22 @@
-import { useAppSelector } from "@/store/store";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import CartItems from "@/pages/Cart/components/CartItems";
 import CartComputation from "@/pages/Cart/components/CartComputation";
+import { setCart } from "@/store/features/cartSlice";
+import { type CartItem } from "@/store/features/cartSlice";
 
 const Cart = () => {
   const { totalAmount } = useAppSelector((state) => state.cart);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("CART");
+    if (storedCart) {
+      const parsedCart: CartItem[] = JSON.parse(storedCart);
+      dispatch(setCart({ meals: parsedCart }));
+    }
+  }, [dispatch]);
 
   return (
     <div className="container !px-0 my-5  h-dvh">

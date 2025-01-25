@@ -7,17 +7,8 @@ import Header from "@/layouts/components/Header";
 import Controls from "@/layouts/components/Controls";
 
 const AppLayout = () => {
-  
-  const dispatch = useAppDispatch();
-  
-  useEffect(() => {
-    const storedCart = localStorage.getItem("CART");
-    if (storedCart) {
-      const parsedCart: CartItem[] = JSON.parse(storedCart);
-      dispatch(setCart({ meals: parsedCart }));
-    }
-  }, [dispatch]);
 
+ 
   return (
     <div className="h-dvh">
       <div className="container flex flex-col mt-10 px-8">
