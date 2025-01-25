@@ -6,6 +6,7 @@ import Home from "@/pages/Home/Home";
 import Meal from "@/pages/Meal/Meal";
 import Cart from "@/pages/Cart/Cart";
 import Favorites from "@/pages/Favorites/Favorites";
+import Delivery from "@/pages/Delivery/Delivery";
 
 const CLIENT_ID =
   "363478011041-t6jslqdj60l5uf76i2januul10n0ta9v.apps.googleusercontent.com";
@@ -23,6 +24,7 @@ function App() {
             <Route path="favorites" element={<Favorites />} />
           </Route>
           <Route path="/meal/:id" element={<Meal />}></Route>
+          <Route path="/delivery" element={<Delivery />} />
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
       </BrowserRouter>
