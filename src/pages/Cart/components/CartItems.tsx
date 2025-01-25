@@ -43,7 +43,6 @@ const CartItems = () => {
 
   return (
     <>
-      <button onClick={() => setCount((prev) => prev + 1)}>test {count}</button>
       {cart.map((item) => (
         <CartItem
           onRemove={handleRemove}
