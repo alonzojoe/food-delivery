@@ -2,8 +2,13 @@ import MapImg from "@/assets/images/maps.png";
 import driverImg from "@/assets/images/driver2x2.jpg";
 import Card from "@/components/UI/Card";
 import { MdOutlineSportsMotorsports } from "react-icons/md";
+import { TbArrowNarrowLeft } from "react-icons/tb";
 import { IoCall } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+
 const Delivery = () => {
+  const navigate = useNavigate();
+
   return (
     <div
       className="h-dvh w-full relative"
@@ -15,6 +20,12 @@ const Delivery = () => {
         backgroundRepeat: `no-repeat`,
       }}
     >
+      <button
+        className="bg-white absolute top-5 left-5 shadow-lg p-4 rounded-lg"
+        onClick={() => navigate(-1)}
+      >
+        <TbArrowNarrowLeft className="text-xl" />
+      </button>
       <div className="container absolute bottom-80 p-5">
         <Card>
           <div className=" bg-white p-5 ro rounded-lg">
