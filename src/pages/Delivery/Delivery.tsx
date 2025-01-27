@@ -24,6 +24,9 @@ const Delivery = () => {
       >
         <TbArrowNarrowLeft className="text-xl" />
       </button>
+      <button className="bg-transparent absolute top-5 right-5 p-4 rounded-lg">
+        <div className="bg-primary h-5 w-5 rounded-full animate-ping"></div>
+      </button>
       <div className="container absolute bottom-80 p-5">
         <OrderInfo />
       </div>

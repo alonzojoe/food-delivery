@@ -6,6 +6,7 @@ import Home from "@/pages/Home/Home";
 import Meal from "@/pages/Meal/Meal";
 import Cart from "@/pages/Cart/Cart";
 import Favorites from "@/pages/Favorites/Favorites";
+import Checkout from "@/pages/Checkout/Checkout";
 import Delivery from "@/pages/Delivery/Delivery";
 
 const CLIENT_ID =
@@ -24,6 +25,7 @@ function App() {
             <Route path="favorites" element={<Favorites />} />
           </Route>
           <Route path="/meal/:id" element={<Meal />}></Route>
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/delivery" element={<Delivery />} />
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
