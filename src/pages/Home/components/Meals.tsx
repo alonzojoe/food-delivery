@@ -9,13 +9,21 @@ type MealsProps = {
 const Meals = ({ meals, selectedCategory }: MealsProps) => {
   return (
     <>
-      {meals.map((meal) => (
-        <MealItem
-          selectedCategory={selectedCategory}
-          meal={meal}
-          key={meal.id}
-        />
-      ))}
+      {!meals.length ? (
+        <p className="text-center text-primary text-md">
+          No matching meals found. Please try a different search keyword.
+        </p>
+      ) : (
+        <>
+          {meals.map((meal) => (
+            <MealItem
+              selectedCategory={selectedCategory}
+              meal={meal}
+              key={meal.id}
+            />
+          ))}
+        </>
+      )}
     </>
   );
 };
