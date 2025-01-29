@@ -58,10 +58,13 @@ const Favorites = () => {
           className="bg-transparent text-lg p-1 font-semibold ring-0 border-0 outline-none w-full placeholder:opacity-45"
           placeholder="Search your favorite food"
           onChange={(e) =>
-            setSearchParams((prev) => {
-              prev.set("search_keyword", e.target.value);
-              return prev;
-            })
+            setSearchParams(
+              (prev) => {
+                prev.set("search_keyword", e.target.value);
+                return prev;
+              },
+              { replace: true }
+            )
           }
           value={search_keyword}
         />
