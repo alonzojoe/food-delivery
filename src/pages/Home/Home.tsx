@@ -50,7 +50,7 @@ const Home = () => {
               { replace: true }
             )
           }
-          // value={keyword}
+          value={keyword}
         />
         <IoSearch className="text-2xl bg-transparent absolute right-3 text-textDark opacity-85" />
       </div>
