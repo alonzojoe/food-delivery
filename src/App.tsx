@@ -6,6 +6,7 @@ import Home from "@/pages/Home/Home";
 import Meal from "@/pages/Meal/Meal";
 import Cart from "@/pages/Cart/Cart";
 import Favorites from "@/pages/Favorites/Favorites";
+import Profile from "@/pages/Profile/Profile";
 import Checkout from "@/pages/Checkout/Checkout";
 import Delivery from "@/pages/Delivery/Delivery";
 
@@ -23,6 +24,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="cart" element={<Cart />} />
             <Route path="favorites" element={<Favorites />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
           <Route path="/meal/:id" element={<Meal />}></Route>
           <Route path="/checkout" element={<Checkout />} />
