@@ -1,4 +1,3 @@
-import { IoSearch } from "react-icons/io5";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import FavoriteItem from "@/pages/Favorites/components/FavoriteItem";

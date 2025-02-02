@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { IoSearch } from "react-icons/io5";
 import { CATEGORIES } from "@/constants/category";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { fetchMeals } from "@/store/thunks/mealThunks";
